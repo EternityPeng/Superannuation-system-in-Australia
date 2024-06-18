@@ -1,5 +1,6 @@
 website:
-[[Retirement and Retirement Intentions, Australia, 2022-23 financial year | Australian Bureau of Statistics (abs.gov.au)](https://www.abs.gov.au/statistics/labour/employment-and-unemployment/retirement-and-retirement-intentions-australia/latest-release)](https://www.abs.gov.au/statistics/economy/finance/managed-funds-australia/dec-2023)
+[Retirement and Retirement Intentions, Australia, 2022-23 financial year | Australian Bureau of Statistics (abs.gov.au)](https://www.abs.gov.au/statistics/labour/employment-and-unemployment/retirement-and-retirement-intentions-australia/latest-release)
+
 
 Table 1 - **Retirement and intentions summary** - Nov 1997 to 2022-23
 
