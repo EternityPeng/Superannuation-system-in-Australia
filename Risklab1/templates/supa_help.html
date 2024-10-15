@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Supa Model Stage 1 - Instructions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="icons/favicon.ico" >
+  <link rel="stylesheet" type="text/css" href="supa_help_style.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+<body>
+<div >
+  <div class="container header">
+      <div id="header" class="col-xs-8">
+        <!--<img src="risklab-logo.png" style="height:125px;float:left;"/> monica*-->
+        <h1 id="title" style="padding:20px 0;">User Guide for SUPA Model Demo</h1>
+      </div>
+      <div class="col col-xs-4">
+        <a class="pull-right" href="http://www.data61.csiro.au">
+        <img class="image--fluid" width="212" src="https://research.csiro.au/risklab/wp-content/themes/csiro-utopia/images/data61__logo--on-black.png" scale="0">
+        </a>
+      </div>
+  </div>
+</div>
+
+<div class="container-content">
+  <p>This is an example for Economic Scenario Generator - SUPA (Simulation of Uncercentainties for Pension Analysis) Model to project uncertain future financial and economic outcomes.
+   There are a total of fourteen economic variables that are projected, namely inflation q(t), wage inflation w(t), long term interest rate l(t), short term interest rate s(t), cash return c(t),
+   domestic dividend yield y(t), domestic dividend growth rate d(t), domestic equity price return p(t), domestic equity total return e(t), international equity total return n(t),
+  domestic bond return b(t), international bond return o(t), house price growth rate h(t) and unemployment rate u(t).<!--<i style="color:blue;">**(Monica will update the text)</i>--></p>
+  <!--<p>Price inflation: \(q(t)=(1-\phi_{q})\mu_{q}+\phi_{q}q(t-1)+\epsilon_{q}(t)\)</p>-->
+  <img id="img-cascading" src="./supa/SUPA14Cascading.png"/>
+  <h2>Functions and Features:</h2>
+  <img id="img-feature" src="./supa/feature-buttons.png"/>
+  <table>
+      <tr>
+        <th>Features</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Number of Years Slider</td>
+        <td>Choose to show number of simulated years from 1 to 30</td>
+      </tr>
+      <tr>
+        <td>Number of Paths Slider</td>
+        <td>Choose to show number of simulated paths from 1 to 50</td>
+      </tr>
+      <tr>
+        <td>Colored lines</td>
+        <td>Check option to show colored simulated paths</td>
+      </tr>
+      <tr>
+        <td>Add Historical Data</td>
+        <td>Check option to show data before year 2018</td>
+      </tr>
+      <tr>
+        <td>Display Data Points</td>
+        <td>Check option to show data points</td>
+      </tr>
+      <tr>
+        <td>Show Percentiles</td>
+        <td>Check option to show 5%, 25%, 50%, 75%, 95% percentiles</td>
+      </tr>
+      <tr>
+        <td>Recalculate New Paths</td>
+        <td>Recalculate new paths for all economic variables</td>
+      </tr>
+      <tr>
+        <td>Play Animation</td>
+        <td>Play/pause animation of the tooltip from year 1995 to end of simulated year</td>
+      </tr>
+    </table>
+  <br>
+  <br>
+
+  <h2>Simulation of variables:</h2>
+  <img id="img-simulation" src="./supa/simulation-graph.png" />
+  <p>You may move the mouse on canvas to show tooltips. The colored lines are simulated data formed with Monte Carlo Simulations.
+  <br>The dashed lines are percentiles: <label id="pct_05">red dashed lines are 5% and 95%</label>, <label id="pct_25">blue dashed lines are 25% and 75%</label> and <label id="pct_50">green dashed line the median.</label></p>
+  <i style="color:blue">(Note: Percentiles are fixed from simulations of 100,000 paths.)</i>
+  <p>To refresh a page, press Shift-F5 in Chrome, or press F5 in Firefox. Then, it will recalculate new path of the SUPA Model.</p>
+
+  <p>For questions or contact for further information, please email <a href="mailto:Zili.Zhu@data61.csiro.au">Dr Zili Zhu</a>.</p>
+</div>
+
+<div class="container footer">
+  <button onclick="risklab();" class="interface-button">Risklab Web Site</button>
+
+  <button onclick="mining();" class="interface-button">Mining Demo</button>
+
+  <button onclick="aa();" class="interface-button">Asset Allocation Demo</button>
+
+  <button onclick="supa();" class="interface-button">SUPA Model Demo</button>
+</div>
+
+<script>
+function risklab() {
+    window.open("https://research.csiro.au/risklab/");
+}
+
+function mining() {
+    window.open("http://risklab1.it.csiro.au:5000/");
+}
+
+function aa() {
+    window.open("http://risklab1.it.csiro.au:5000/aa");
+}
+
+function supa() {
+    window.open("http://risklab1.it.csiro.au:5000/supa");
+}
+</script>
+
+</body>
+
+</html>

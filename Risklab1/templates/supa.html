@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>SUPA Model Data Graphs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="icons/favicon.ico" >
+    <link rel="stylesheet" type="text/css" href="supa/styles.css">
+
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="ip.js"></script>
+    <script type="text/javascript" src="supa/functions_supa.js"></script>
+    <script type="text/javascript" src="supa/multiline-graph.js"></script>
+    <script type="text/javascript" src="supa/js-colormaps.js"></script>
+  </head>
+
+
+  <body>
+    <div class="container">
+      <div id="header" class="col-xs-8">
+        <!--<img src="risklab-logo.png" style="height:125px;float:left;"/> monica*-->
+        <h1 style="padding: 20px 0 ;">Economic Scenario Generator - SUPA Model</h1>
+      </div>
+      <div class="col col-xs-4">
+        <a class="pull-right" href="http://www.data61.csiro.au">
+        <img class="image--fluid" width="212" src="https://research.csiro.au/risklab/wp-content/themes/csiro-utopia/images/data61__logo--on-black.png" scale="0">
+        </a>
+      </div>
+    </div>
+    <div id="wrapper">
+      <div id="div_form">
+        <form role="form" class="function-form">
+            <label for="numYears" class="interface-label">Number of Years = </label>
+            <input id="numYears" name="numYears" type="number" value="20" min="1" max="30" onchange="updateNumYears_Slider(this.value);" class="interface-label">
+            <input id="rangeNumYears" type="range" value="20" min="1" max="30" step="1" oninput="updateNumYears(this.value);" onchange="updateNumYears(this.value);">
+            <br>
+
+            <label for="numPaths" class="interface-label">Number of Paths = </label>
+            <input id="numPaths" name="numPaths" type="number" value="10" min="1" max="50" onchange="updateNumPaths_Slider(this.value);" class="interface-label">
+            <input id="rangeNumPaths" type="range" value="10" min="1" max="50" step="1" oninput="updateNumPaths(this.value);" onchange="updateNumPaths(this.value);">
+
+            <br>
+            <br>
+
+            <label for="checked_color" class="interface-label">Colored lines</label>
+            <input id="checked_color" name="checked_color" type="checkbox" onchange="changeLinesColors();" value="Color" checked>
+            <br>
+            <label for="checked_hist" class="interface-label">Add Historical Data</label>
+            <input id="checked_hist" name="checked_hist" type="checkbox" onchange="addHistoricalData();" value="Hist" checked>
+            <br>
+            <label for="checked_datapoints" class="interface-label">Display Data Points</label>
+            <input id="checked_datapoints" name="checked_datapoints" type="checkbox" onchange="displayDataPoints()" value="DataPoints" checked>
+            <br>
+            <label for="checked_percentiles" class="interface-label">Show Percentiles</label>
+            <input id="checked_percentiles" name="checked_percentiles" type="checkbox" onchange="showPercentiles()" value="Percentiles">
+            <br>
+            <div id="div_pct" class="pct-help">
+              <label id="pct_05"></label><br>
+              <label id="pct_25"></label><br>
+              <label id="pct_50"></label><br>
+            </div>
+          <br>
+
+          <input id="recalculatePath" type="button" value="Recalculate New Paths" onclick="recalculatePathFunc();" class="interface-button">
+
+          <input id="playAnimation" type="button" value="Play Animation" onclick="animateFunc();" class="interface-button">
+          <br>
+
+          <br>
+          <label class="interface-label">Please use Chrome or Firefox browsers for the best experience. For more information, click <a href="/supa_help">here</a> for the user guide.</label>
+          <br>
+
+          <input readonly id="frameNumber" name="frameNumber" type="hidden" size="4" maxlength="4" onchange="frameChangeUpdate(false);" class="interface-label">
+
+        </form>
+        <div style="clear:both"></div>
+      </div>
+      <div id="div_graphs">
+        <div id="div_tab">
+          <button id="tab00" class="tab-button tab-active" onclick="changeTab('00')">Overview</button>
+          <button id="tab01" class="tab-button" onclick="changeTab('01')">Inflation(q)</button>
+          <button id="tab02" class="tab-button" onclick="changeTab('02')">Wage Inflation(w)</button>
+          <button id="tab03" class="tab-button" onclick="changeTab('03')">Long Term Interest Rate(l)</button>
+          <button id="tab04" class="tab-button" onclick="changeTab('04')">Short Term Interest Rates(s)</button>
+          <button id="tab05" class="tab-button" onclick="changeTab('05')">Cash Return(c)</button>
+          <button id="tab06" class="tab-button" onclick="changeTab('06')">Domestic Dividend Yield(y)</button>
+          <button id="tab07" class="tab-button" onclick="changeTab('07')">Domestic Dividend Growth Rate(d)</button>
+          <button id="tab08" class="tab-button" onclick="changeTab('08')">Domestic Equity Price Return(p)</button>
+          <button id="tab09" class="tab-button" onclick="changeTab('09')">Domestic Equity Total Return(e)</button>
+          <button id="tab10" class="tab-button" onclick="changeTab('10')">International Equity Total Return(n)</button>
+          <button id="tab11" class="tab-button" onclick="changeTab('11')">Domestic Bond Return(b)</button>
+          <button id="tab12" class="tab-button" onclick="changeTab('12')">International Bond Return(o)</button>
+          <button id="tab13" class="tab-button" onclick="changeTab('13')">House Price Growth Rate(h)</button>
+          <button id="tab14" class="tab-button" onclick="changeTab('14')">Unemployment Rate(u)</button>
+        </div>
+        <table>
+
+          <tr>
+            <td id="td01" class="tab" width="50%">
+              <div id="pathSVG-qt" class="svg-inwrap"></div>
+            </td>
+            <td id="td02" class="tab" width="50%">
+              <div id="pathSVG-wt" class="svg-inwrap"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td id="td03" class="tab" width="50%">
+              <div id="pathSVG-lt" class="svg-inwrap"></div>
+            </td>
+            <td id="td04" class="tab" width="50%">
+              <div id="pathSVG-st" class="svg-inwrap"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td id="td05" class="tab" width="50%">
+              <div id="pathSVG-ct" class="svg-inwrap"></div>
+            </td>
+            <td id="td06" class="tab" width="50%">
+              <div id="pathSVG-yt" class="svg-inwrap"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td id="td07" class="tab" width="50%">
+              <div id="pathSVG-dt" class="svg-inwrap"></div>
+            </td>
+            <td id="td08" class="tab" width="50%">
+              <div id="pathSVG-pt" class="svg-inwrap"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td id="td09" class="tab" width="50%">
+              <div id="pathSVG-et" class="svg-inwrap"></div>
+            </td>
+            <td id="td10" class="tab" width="50%">
+              <div id="pathSVG-nt" class="svg-inwrap"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td id="td11" class="tab" width="50%">
+              <div id="pathSVG-bt" class="svg-inwrap"></div>
+            </td>
+            <td id="td12" class="tab" width="50%">
+              <div id="pathSVG-ot" class="svg-inwrap"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td id="td13" class="tab" width="50%">
+              <div id="pathSVG-ht" class="svg-inwrap"></div>
+            </td>
+            <td id="td14" class="tab" width="50%">
+              <div id="pathSVG-ut" class="svg-inwrap"></div>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="supa/main_supa.js"></script>
+
+  </body>
+
+</html>

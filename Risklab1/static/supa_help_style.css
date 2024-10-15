@@ -1,0 +1,114 @@
+/* CSS styles for Supa Model Stage 1 instruction page */
+body {
+    font-family:Calibri, sans-serif;
+    margin:0;
+    background-color:#f0f8f5;
+}
+
+th {
+    background-color:#2FB787;
+    color:#FFF;
+}
+
+th,td {
+    padding-right:10px;
+    padding-left:10px;
+    padding-top:5px;
+    border:1px solid black;
+}
+
+.header {
+    align-items:center;
+    background-image:url("./supa/data61__hexagon-overlay--small.png");
+}
+
+.footer {
+    padding: 20px 15px;
+}
+
+.container {
+    background-color: black;
+    display:flex;
+}
+
+.container-content {
+    margin: 15px 5%;
+    padding: 15px 0;
+    background-color:#fff;
+    text-align: center;
+}
+
+.container-content h2 {
+    text-decoration: underline;
+}
+
+.container-content table {
+    width: 60%;
+}
+
+.container-content p {
+  text-align: justify;
+  padding: 0 10%;
+}
+
+div button {
+    padding: 10px;
+    background-color: inherit;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: small;
+    text-decoration: underline;
+}
+
+#img-cascading {
+    width:60%;
+    margin-left:20%;
+    margin-right:20%;
+}
+
+#img-feature {
+    float:left;
+    height:300px;
+    margin-left:10%;
+}
+
+#img-simulation {
+    width:100%;
+}
+
+#header {
+    padding:15px 5%;
+}
+
+#title {
+    margin:0;
+    color:white;
+}
+
+#pct_05 {
+    color:red;
+}
+
+#pct_25 {
+    color:navy;
+}
+#pct_50 {
+    color: green;
+}
+
+.col {
+    padding-right: 5%;
+}
+
+.col-xs-4 {
+    width: 33.33333%;
+}
+
+.col-xs-8 {
+    width: 66.66667%;
+}
+
+.pull-right {
+  float: right !important;
+}

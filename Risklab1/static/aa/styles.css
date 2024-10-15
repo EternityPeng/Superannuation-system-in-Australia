@@ -1,0 +1,242 @@
+<!-- CSS Styling Elements -->
+
+/*
+    The following define default class behaviour. These are for the paths, lines, areas etc.
+*/
+
+body {font: 12px Ariel}
+
+table {
+  //border: 3px solid blue;
+  //border-color: blue;
+  width: 100%;
+}
+
+td, th {
+  //padding: 20px;
+  //border: 3px solid red;
+}
+
+th {
+  height: 1px;
+}
+
+#visualiser_yaxisLeft {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+#visualiser_xaxis {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+path {
+  stroke: steelblue;
+  fill: none;
+}
+
+.axis {
+  font-size: 140%;
+}
+
+.axis path;
+
+.axis line {
+  fill: none;
+  stroke: grey;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+
+.priceLine {
+  fill: none;
+  stroke-width: 4;
+}
+
+.open {
+  stroke: #006D2C;
+}
+
+.closed {
+  stroke: #E87722;
+}
+
+.abandoned {
+  stroke: #DF1795;
+}
+
+.infeasible{
+  stroke: #DEEBF7;
+}
+
+.depleted {
+  stroke: #E4002B;
+}
+
+circle {
+  fill: #000000;
+  cursor: move;
+}
+
+circle.selected {
+  fill: orange;
+  stroke: black;
+}
+
+circle.unchanged {
+  fill: black;
+  stroke: black;
+}
+
+circle:hover {
+  fill: orange;
+  stroke: black;
+}
+
+circle.selected:hover {
+  fill: orange;
+  stroke: black;
+}
+
+circle.unchanged:hover {
+  fill: black;
+  stroke: black;
+}
+
+.area {
+  fill: lightsteelblue;
+  stroke-width: 0;
+}
+
+.legend {
+  font-size: 16px;
+  font-weight: bold;
+  text-anchor: middle;
+}
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;
+}
+
+.legend-box {
+  display: inline-block;
+  position: relative;
+  height: 50%;
+  outline: inherit;
+}
+
+.legend-label {
+  font-size: 1.3vw;
+}
+
+.legend-name {
+  font-size: 1.0vw;
+}
+
+.legend {
+  font-size: 9px;
+}
+
+rect {
+  stroke-width: 4;
+}
+
+/*
+    svg-container and svg-content classes allow the dynamic rescaling of objects when a window is resized etc. The code for these was inspired by
+    this thread:
+
+    - https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js
+*/
+
+
+.interface-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 110%;
+}
+
+.interface-button {
+  width: auto;
+  min-width: 100px;
+  height: auto;
+  min-height: 30px;
+  font-size: 110%;
+  overflow: auto;
+}
+
+/* border not seen */
+.svg-wrapper {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 75%;
+  //border: 3px solid red;
+}
+
+/* LHS + RHS visualisation - svg, inner border
+*/
+.svg-content {
+  width: 100%;
+  //border: 1px solid blue;
+  position: absolute;
+}
+
+/* line graphs - svg, inner border */
+.svg-container {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 0;
+  padding-bottom: 26.67%;
+  //overflow: hidden;
+  //border: 1px solid red;
+  position: relative;
+}
+
+/* bar chart */
+.svg-container2 {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 0;
+  padding-bottom: 26.67%;
+  //overflow: hidden;
+  //border: 1px solid red;
+  position: relative;
+}
+
+/* RHS legend area */
+.svg-container2-legend {
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+  width: 30%;
+  height: 0;
+  padding-bottom: 35.00%;
+  overflow: visible;
+  //border: 1px solid blue;
+  position: relative;
+}
+
+div.holder {
+  //border: 2px solid black;
+}
+
+/* line graphs - whole div */
+.svg-inwrap {
+  display: inline-block;
+  width: 100%;
+  height: 0;
+  padding-bottom: 26.67%;
+  //border: 1px solid orange;
+  position: relative;
+}
+
+/* bar chart - whole div */
+.svg-inwrap2 {
+  display: inline-block;
+  width: 100%;
+  height: 0;
+  padding-bottom: 26.67%;
+  //border: 1px solid orange;
+  position: relative;
+}

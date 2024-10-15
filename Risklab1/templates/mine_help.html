@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Mining Valuation - Instructions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="icons/favicon.ico" >
+  <link rel="stylesheet" type="text/css" href="help_styles.css">
+</head>
+
+<body>
+
+<h1>Help</h1>
+
+<p>This is an example of mining valuation algorithm, which gives us the optimal mine values and switching boundaries of a mine. There are four possible different switching boundaries:</p>
+
+<ul>
+  <li>Open to Closed</li>
+  <li>Open to Abandoned</li>
+  <li>Closed to Open</li>
+  <li>Closed to Abandoned</li>
+</ul>
+
+<p>Please use Google Chrome or Firefox browsers to see the demo web pages.</p>
+
+<p>Functions of buttons:</p>
+
+<table>
+  <tr>
+    <td><img src="mining\buttons.jpg"></td>
+    <td>
+      <ul>
+        <li>Decision Time - current time step, between integer 0 and 119.</li>
+        <li>Play - play/pause animation from time step 0 to 119.</li>
+        <li>Recalculate - recalculate new path of copper prices.</li>
+        <li>Help - display this page.</li>
+        <li>View Price Tooltip - enable/disable viewing of price tooltips.</li>
+        <li>Update Switching Boundary with Price Observation - enable/disable synchronization of time steps between copper price observations and switching boundaries in both graphs.</li>
+        <li>Display Current Operating Regime - enable/disable display of the circle, which represents the current operating regime (i.e. open/closed/abandoned mine) in the switching boundary graph.</li>
+        <li>Enable Price Editing - enable/disable editing of copper prices.</li>
+        <li>Automatically Interpolate Unfilled Points - automatically interpolate missing points when some data points in the copper price graph may be deleted.</li>
+        <li>Clear Current Path - clear all data points in the copper price graph.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<p>Features on both graphs include:</p>
+
+<table>
+  <tr>
+    <td style="width:70%"><img src="mining\price1.jpg" style="width:100%;"></td>
+    <td style="width:20%"><img src="mining\status1.jpg" style="width:100%;"><br>Their corresponding values are shown below the buttons.</td>
+  </tr>
+  <tr>
+    <td colspan="2">Move mouse on canvas to show tooltips of copper price and switching boundaries at current time step.</td>
+  </tr>
+  <tr>
+    <td style="width:70%"><img src="mining\switching1.jpg" style="width:100%;"></td>
+    <td style="width:20%"><img src="mining\legend1.jpg" style="width:91%;"></td>
+  </tr>
+</table>
+
+<p>Features on the copper price line graph include:</p>
+
+<ul>
+  <li>Drag on canvas to pan the graph.</li>
+  <li>Double-click on canvas to zoom in.</li>
+  <li>Shift-double-click on canvas to zoom out.</li>
+  <li>Drag on one of the X or Y axis numeric labels to re-scale that axis.</li>
+</ul>
+  
+<table>
+  <tr>
+    <td style="width:30%;text-align:left;">
+      <ol>To move a data point:
+        <li>Enable price editing by turning it "On".</li>
+        <li>Click anywhere on the canvas to select the closest data point to cursor.</li>
+        <li>Drag a selected data point up or down to change its y value.</li>
+      </ol>
+    </td>
+    <td style="width:60%;"><img src="mining\move1.jpg" style="width:100%;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td style="width:30%;">
+      <ol>To delete multiple data points:
+        <li>Press and hold the Shift key.</li>
+        <li>Click anywhere on the canvas to select/deselect multiple data points.</li>
+        <li>The data points will be highlighted in orange, color and they do not have to be adjacent.</li>
+      </ol>
+    </td>
+    <td style="width:60%;border: 2px solid navy;background-color:yellow;text-align:center"><img src="mining\before_delete1.jpg" style="width:100%;">Before Deletion</td>
+  </tr>
+  <tr>
+    <td style="width:30%;">
+      <ol start="4">
+        <li>Delete or Backspace key can be pressed to delete the selected data points.</li>
+        <li>Press the button "Automatically Interpolate Unfilled Points" to turn it on to interpolate the missing points.</li>
+      </ol>
+    </td>
+    <td style="width:60%;border: 2px solid navy;background-color:yellow;text-align:center"><img src="mining\after_interpolate1.jpg" style="width:100%;">After Deletion and Automatic Interpolation.</td>
+  </tr>
+  <tr>
+    <td style="width:30%;">
+      <ol start="1">To add new or move data points:
+        <li>We can also press and hold the 'ALT' key and click an empty area in the graph to add new or move data points.</li>
+      </ol>
+    </td>
+    <td style="width:60%;border: 2px solid navy;background-color:yellow;text-align:center"><img src="mining\alt1.jpg" style="width:100%;">Use 'ALT' key to add new or move data points.</td>
+  </tr>
+</table>
+
+<p>To refresh a page, press Shift-F5 in Chrome, or press F5 in Firefox. Then, it will recalculate a new path of copper prices.</p>
+
+<p>For questions or contact for further information, please email <a href="mailto:Zili.Zhu@data61.csiro.au">Dr Zili Zhu</a>.</p>
+
+<button onclick="risklab();" class="interface-button">Risklab Web Site</button>
+
+<button onclick="aa();" class="interface-button">Asset Allocation Demo</button>
+
+<button onclick="mining();" class="interface-button">Mining Demo</button>
+
+<br><br><br>
+
+<script>
+function risklab() {
+    window.open("https://research.csiro.au/risklab/");
+}
+
+function aa() {
+    window.open("http://risklab1.it.csiro.au:5000/aa");
+}
+
+function mining() {
+    window.open("http://risklab1.it.csiro.au:5000/");
+}
+</script>
+
+</body>
+
+</html>

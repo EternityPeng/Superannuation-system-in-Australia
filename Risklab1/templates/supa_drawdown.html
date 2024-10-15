@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>SUPA Model Retirement Income Calculator</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="icons/favicon.ico" >
+      <link rel="stylesheet" type="text/css" href="supa/styles.css">
+      <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript" src="ip.js"></script>
+      <script type="text/javascript" src="supadd/functions_supadrawdown.js"></script>
+   </head>
+   <body>
+      <div class="container">
+         <div id="header" class="col-xs-8">
+            <!--<img src="risklab-logo.png" style="height:125px;float:left;"/> monica*-->
+            <h1 style="padding:20px 0;">Retirement Income Calculator</h1>
+         </div>
+         <div class="col col-xs-4">
+            <a class="pull-right" href="http://www.data61.csiro.au">
+            <img class="image--fluid" width="212" src="https://research.csiro.au/risklab/wp-content/themes/csiro-utopia/images/data61__logo--on-black.png" scale="0">
+            </a>
+         </div>
+      </div>
+      <div id="wrapper" style="display: block !important;">
+         <div class="function-form">
+            <form id="form" role="form">
+               <h3 style="font-weight: normal;">This calculator helps people to understand <b>retirement income</b>, <b>Account Based Pension (ABP)</b>, <b>Age Pension</b>, under different <b>investment</b> and <b>consumption</b> strategies.</h3>
+               <h4><i>*The results are based on 10,000 Monte Carlo simulations from the SUPA model for a single person aged 67.</i></h4>
+               <br>
+               <table id="drawdown_form" class="table">
+                  <tbody>
+                     <tr>
+                        <td>
+                           <label for="gender" class="interface-label">Gender: </label>
+                        </td>
+                        <td>
+                           <select id="gender" name="gender">
+                              <option value="M">Male</option>
+                              <option value="F">Female</option>
+                           </select>
+                        </td>
+                        <td>
+                           <label for="superbalance" class="interface-label">Superannuation balance ($):</label>
+                        </td>
+                        <td>
+                           <input id="superbalance" name="superbalance" type="number" class="interface-label" value="400000">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <label for="home" class="interface-label">Home owner: </label>
+                        </td>
+                        <td>
+                           <select id="home" name="home">
+                              <option value="yes">Yes</option>
+                              <option value="no">No</option>
+                           </select>
+                        </td>
+                        <td>
+                           <label for="testable" class="interface-label">Testable assets ($):</label>
+                        </td>
+                        <td>
+                           <input id="testable" name="testable" type="number" class="interface-label" value="0">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <label for="income_wkly" class="interface-label">Weekly income ($):</label>
+                        </td>
+                        <td>
+                           <input id="income_wkly" name="income_wkly" type="number" class="interface-label" value="0">
+                        </td>
+                        <td>
+                           <label for="financial" class="interface-label">Financial assets ($):</label>
+                        </td>
+                        <td>
+                           <input id="financial" name="financial" type="number" class="interface-label" value="50000">
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <br>
+               <hr>
+            </form>
+            <form id="form1" name="form1" method="post">
+            </form>
+            <form id="form2" name="form2" method="post">
+            </form>
+            <table class="table">
+               <thead>
+                  <tr>
+                     <th> </th>
+                     <th>
+                        <h2 style="color:rgb(000,169,206);">Strategy 1</h2>
+                     </th>
+                     <th>
+                        <h2 style="color:rgb(000,169,206);">Strategy 2</h2>
+                     </th>
+                  </tr>
+               </thead>
+               <tr>
+                  <td style="text-align:left;width: 260px;">
+                     <img src="supa/info.png" class="button-disclaimer" onclick="showDisclaimer(5)"/>
+                     <label for="annuity" class="interface-label">Annuitisation (max: 50%): </label>
+                  </td>
+                  <td>
+                     <div>
+                        <ul class="range-labels">
+                           <li style="float: left;">0</li>
+                           <li style="float: right;">50</li>
+                        </ul>
+                        <input form="form1" name="annuity" type="range" min="0" max="50" step="10" value="0" class="slider" id="aRange1">
+                        <span id="annuity1">0</span>
+                     </div>
+                  </td>
+                  <td>
+                     <div>
+                        <ul class="range-labels">
+                           <li style="float: left;">0</li>
+                           <li style="float: right;">50</li>
+                        </ul>
+                        <input form="form2" name="annuity" type="range" min="0" max="50" step="10" value="30" class="slider" id="aRange2">
+                        <span id="annuity2">30%</span>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+                  <td style="text-align:left;">
+                     <img src="supa/info.png" class="button-disclaimer" onclick="showDisclaimer(2)"/>
+                     <label for="stategy" class="interface-label">Investment strategy: </label>
+                  </td>
+                  <td>
+                     <select form="form1" id="strategy" name="strategy" style="width:180px;">
+                        <option value="cash">Cash</option>
+                        <option value="conservative" selected>Conservative</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="linearDecrease">Linear Decrease</option>
+                        <option value="balanced">Balanced</option>
+                        <option value="growth">Growth</option>
+                        <option value="highGrowth">High Growth</option>
+                     </select>
+                  </td>
+                  <td>
+                     <select form="form2" id="strategy" name="strategy" style="width:180px;">
+                        <option value="cash">Cash</option>
+                        <option value="conservative">Conservative</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="linearDecrease">Linear Decrease</option>
+                        <option value="balanced">Balanced</option>
+                        <option value="growth" selected>Growth</option>
+                        <option value="highGrowth">High Growth</option>
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td style="text-align:left;">
+                     <img src="supa/info.png" class="button-disclaimer" onclick="showDisclaimer(3)"/>
+                     <label for="fundlevel" class="interface-label">Fund fees level: </label>
+                  </td>
+                  <td>
+                     <select form="form1" id="fundlevel" name="fundlevel" style="width:180px;">
+                        <option value="low">Low</option>
+                        <option value="low-medium">Low-medium</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="medium-high">Medium-high</option>
+                        <option value="high">High</option>
+                        <option value="other">Other</option>
+                     </select>
+                  </td>
+                  <td>
+                     <select form="form2" id="fundlevel" name="fundlevel" style="width:180px;">
+                        <option value="low">Low</option>
+                        <option value="low-medium">Low-medium</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="medium-high">Medium-high</option>
+                        <option value="high">High</option>
+                        <option value="other">Other</option>
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td style="text-align:left;">
+                     <img src="supa/info.png" class="button-disclaimer" onclick="showDisclaimer(4)"/>
+                     <label for="withdrawal" class="interface-label">Withdrawal strategy: </label>
+                  </td>
+                  <td>
+                     <select form="form1" id="withdrawal" name="withdrawal" style="width:180px;">
+                        <option value="minimum">Minimum</option>
+                        <option value="minimumplus">Minimum + 1%</option>
+                        <option value="4percentRule">4% Rule</option>
+                        <option value="RoT">Rule of Thumb</option>
+                        <option value="modest">Modest Target</option>
+                        <option value="comfortable">Comfortable Target</option>
+                        <option value="luxury">Luxury Target</option>
+                     </select>
+                  </td>
+                  <td>
+                     <select form="form2" id="withdrawal" name="withdrawal" style="width:180px;">
+                        <option value="minimum">Minimum</option>
+                        <option value="minimumplus">Minimum + 1%</option>
+                        <option value="4percentRule">4% Rule</option>
+                        <option value="RoT" selected>Rule of Thumb</option>
+                        <option value="modest">Modest Target</option>
+                        <option value="comfortable">Comfortable Target</option>
+                        <option value="luxury">Luxury Target</option>
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                  </td>
+                  <td>
+                     <input id="calculate" type="button" value="Calculate" onclick="calculateFunc(1)" class="interface-button">
+                  </td>
+                  <td>
+                     <input id="calculate" type="button" value="Calculate" onclick="calculateFunc(2)" class="interface-button">
+                  </td>
+               </tr>
+            </table>
+            <br>
+            </form>
+            <div id="divgraphs" style="display:none;">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <td></td>
+                        <td>
+                           <h2 style="color:rgb(000,169,206);">Strategy 1</h2>
+                        </td>
+                        <td>
+                           <h2 style="color:rgb(000,169,206);">Strategy 2</h2>
+                        </td>
+                     </tr>
+                  </thead>
+                  <tbody id="RIgraph">
+                     <tr>
+                        <td style="width:100px;text-align:right;">
+                           <h3>Income ($)</h3>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI11" class="svg-inwrap1"></div>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI21" class="svg-inwrap2"></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="text-align:right;">
+                           <h3>Superannuation (residual) ($)</h3>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI12" class="svg-inwrap1"></div>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI22" class="svg-inwrap2"></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="text-align:right;">
+                           <h3>Age Pension ($)</h3>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI13" class="svg-inwrap1"></div>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI23" class="svg-inwrap2"></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="text-align:right;">
+                           <h3>Superannuation Drawdown ($)</h3>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI14" class="svg-inwrap1"></div>
+                        </td>
+                        <td class="tab">
+                           <div id="pathSVG-RI24" class="svg-inwrap2"></div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <br>
+            <label class="interface-label">Please use Chrome or Firefox browsers for the best experience. <a style="text-decoration:underline;cursor:pointer;" onclick="showDisclaimer(1)">Disclaimer</a></label>
+            <br>
+         </div>
+      </div>
+      </div>
+      <div id="popup" style="display:none;">
+         <div class="overlay" onclick="showDisclaimer(0)"></div>
+         <div id="popup_content1" class="popup-content">
+            <h2>Disclaimer</h2>
+            <ul>
+               <li>The output from the forecasting model and calculation in this website is for general information only and should not be taken as constituting professional advice by CSIRO as the website owner.</li>
+               <li>CSIRO is not a financial adviser, any information presented here is only for the purpose of demonstrating the quantitative models developed at CSIRO. You should seek independent legal, financial, taxation advice to check if the website information is relevant to your own circumstances.</li>
+               <li>CSIRO is not liable for any loss caused, whether due to negligence or otherwise arising from the use of, or reliance on, the information provided directly or indirectly, by use of this website.</li>
+               <li>This is a model, not a prediction.</li>
+               <li>The results from this calculator are based on the limited information that you have provided and assumptions made about the future. The amounts projected are estimates only provided by this model and are not guaranteed.</li>
+               <li>This calculator cannot predict your final superannuation benefit with certainty because this will depend on your personal circumstances including unexpected events in your life and external factors such as investment earnings, tax and inflation. This calculator assumes that you can make steady, predictable contributions and that all assumptions including these external factors will operate at set, steady rates for as long as you remain in the fund, even if events turn out differently from what's assumed. These assumptions are essential so the calculator can show the effect of things you may be able to control, such as choosing a low-fee fund.</li>
+               <li>You should consider updating the projections provided by this model regularly as your circumstances may have changed. You can also change and update some of the assumptions to reflect your personal circumstances.</li>
+               <li>Do not rely solely on this calculator to make decisions about your retirement, there may be other factors to take into account. Consider your own investment objectives, financial situation and needs. You may wish to get advice from a licensed financial adviser.</li>
+            </ul>
+         </div>
+         <div id="popup_content2" class="popup-content">
+            <p>The investment strategies correspond to the following risky asset weight and fees:</p>
+            <table>
+               <tr>
+                  <td>Investment</td>
+                  <td>Cash</td>
+                  <td>Conservative</td>
+                  <td>Linear Decrease</td>
+                  <td>Moderate</td>
+                  <td>Balanced</td>
+                  <td>Growth</td>
+                  <td>High-Growth</td>
+               </tr>
+               <tr>
+                  <td>Risky asset weight (%)</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>max[1-{age}%,0]</td>
+                  <td>50</td>
+                  <td>70</td>
+                  <td>85</td>
+                  <td>100</td>
+               </tr>
+               <tr>
+                  <td>Fees (% pa)</td>
+                  <td>0.05</td>
+                  <td>0.3</td>
+                  <td>0.35</td>
+                  <td>0.4</td>
+                  <td>0.5</td>
+                  <td>0.6</td>
+                  <td>0.7</td>
+               </tr>
+            </table>
+            <p>
+               Some of the rates and prices are provided by the Money-Smart superannuation calculator of the Australian Securities and Investment Commission (ASIC)
+            </p>
+         </div>
+         <div id="popup_content3" class="popup-content">
+            <p>The indirect cost ratio depending on the fund fee level:</p>
+            <table>
+               <tr>
+                  <td>Fee Level</td>
+                  <td>Low</td>
+                  <td>Low-Medium</td>
+                  <td>Medium</td>
+                  <td>Medium-High</td>
+                  <td>High</td>
+               </tr>
+               <tr>
+                  <td>Indirect Cost Ratio (% pa)</td>
+                  <td>0</td>
+                  <td>0.3</td>
+                  <td>0.6</td>
+                  <td>1.3</td>
+                  <td>2</td>
+               </tr>
+            </table>
+            <p>
+               Some of the rates and prices are provided by the Money-Smart superannuation calculator of the Australian Securities and Investment Commission (ASIC)
+            </p>
+         </div>
+         <div id="popup_content4" class="popup-content">
+            <p>The drawdown strategies are explained as below:</p>
+            <ol>
+               <li>
+                  <b>Minimum</b>: minimum drawdown rate required by superannuation regulation rule: Depending on the age, there is a minimum amount you must withdraw from an ABP each financial year below.
+                  <br><br>
+                  <table>
+                     <tr>
+                        <td>Age</td>
+                        <td>under 65</td>
+                        <td>65-74</td>
+                        <td>75-79</td>
+                        <td>80-84</td>
+                        <td>85-89</td>
+                        <td>90-94</td>
+                        <td>over 95</td>
+                     </tr>
+                     <tr>
+                        <td>Minimum drawdown(%)</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>9</td>
+                        <td>11</td>
+                        <td>14</td>
+                     </tr>
+                  </table>
+                  <br>
+               </li>
+               <li><b>1% Plus</b>: Minimum rate + 1% drawdown rule</li>
+               <li><b>4% Rule</b>: 4% of the initial balance, regardless of the market performance and age.</li>
+               <li>
+                  <b>Rule of Thumb</b>:  The rule of thumb defines a baseline drawdown rate % of the first digit of the age, adding 2% to the rate if the account balance is between $250, 000 and $500, 000, also subject to the minimum drawdown rule
+                  <br><br>
+                  <table>
+                     <tr>
+                        <td>Age</td>
+                        <td>under 65</td>
+                        <td>65-69</td>
+                        <td>70-74</td>
+                        <td>75-79</td>
+                        <td>80-84</td>
+                        <td>85-89</td>
+                        <td>90-94</td>
+                        <td>over 95</td>
+                     </tr>
+                     <tr>
+                        <td>250k <= Balance < 500k</td>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>14</td>
+                     </tr>
+                     <tr>
+                        <td>Balance >= 500k or < 250k</td>
+                        <td>6</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>11</td>
+                        <td>14</td>
+                     </tr>
+                  </table>
+                  <br>
+               </li>
+               <li><b>Modest Target</b>: ASFA modest lifestyle of drawdown of $27,368 per annum</li>
+               <li><b>Comfortable Target</b>: ASFA comfortable lifestyle of drawdown of $42,764 per annum</li>
+               <li><b>Luxury Target</b>: Luxury lifestyle of drawdown of $60,000 per annum</li>
+            </ol>
+         </div>
+         <div id="popup_content5" class="popup-content">
+            <h2>Annuitisation</h2>
+            <ul>
+               <li>Maximum is 50%.</li>
+            </ul>
+         </div>
+      </div>
+      <script>
+         var slider1 = document.getElementById("aRange1");
+         var output1 = document.getElementById("annuity1");
+         var slider2 = document.getElementById("aRange2");
+         var output2 = document.getElementById("annuity2");
+         output1.innerHTML = slider1.value+'%';
+         output2.innerHTML = slider2.value+'%';
+
+         slider1.oninput = function() {
+         output1.innerHTML = this.value+'%';
+         }
+         slider2.oninput = function() {
+         output2.innerHTML = this.value+'%';
+         }
+
+      </script>
+   </body>
+</html>

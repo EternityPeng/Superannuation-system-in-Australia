@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Asset Allocation - Instructions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="icons/favicon.ico" >
+  <link rel="stylesheet" type="text/css" href="help_styles.css">
+</head>
+
+<body>
+
+<h1>Help</h1>
+
+<p>This is an example for asset allocation for portfolio optimization of two assets --- cash and one equity only. Please use Google Chrome or Firefox browsers to see the demo web pages.</p>
+
+<p>Functions of buttons:</p>
+
+<table>
+  <tr>
+    <td><img src="aa\buttons.jpg"></td>
+    <td>
+      <ul>
+        <li>Help - display this page.</li>
+        <li>Time step - current time step, between integer 0 and 12.</li>
+        <li>Play - play/pause animation from time step 0 to 12.</li>
+        <li>Recalculate - recalculate new path of equity return, portfolio weights and cumulative wealth.</li>
+        <li>Enable Price Editing - enable/disable price editing.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<p>Features on both line graphs (i.e. Equity Return and Cumulative Wealth) include:</p>
+
+<table>
+  <tr>
+    <td style="width:45%"><img src="aa\equity1.jpg" style="width:100%;"></td>
+    <td style="width:45%"><img src="aa\wealth1.jpg" style="width:100%;"></td>
+  </tr>
+  <tr>
+    <td colspan="2">Move mouse on canvas to show tooltips of equity return, portfolio weights and cumulative wealth at current time step in the 3 graphs.</td>
+  </tr>
+  <tr>
+    <td style="width:45%"><img src="aa\portfolio1.jpg" style="width:100%;"></td>
+    <td style="width:45%"><img src="aa\debug1.jpg"><br>Their corresponding values are shown below the buttons.</td>
+  </tr>
+</table>
+
+<ul>
+  <li>Drag on canvas to pan the graphs.</li>
+  <li>Double-click on canvas to zoom in.</li>
+  <li>Shift-double-click on canvas to zoom out.</li>
+  <li>Drag on one of the X or Y axis numeric labels to re-scale that axis.</li>
+</ul>
+
+<p>Features on the Equity Return line graph include:</p>
+
+<ul>
+  <li>Moving or deleting data points are only allowed in the Equity Return graph, but not the Cumulative Wealth graph.</li>
+</ul>
+  
+<table>
+  <tr>
+    <td style="width:45%;text-align:left;">
+      <ul>
+        <li>Click anywhere on the canvas to select the closest data point to cursor.</li>
+        <li>Drag a selected data point up or down to change its y value.</li>
+        <li>Once a data point in the Equity Return graph is moved, the portfolio weights and the cumulative wealth will be automatically calculated for the new path, and the graphs updated.</li>
+      </ul>
+    </td>
+    <td style="width:45%;"><img src="aa\move.jpg" style="width:100%;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td style="width:45%;border: 2px solid navy;background-color:yellow;text-align:center"><img src="aa\before_delete.jpg" style="width:100%;">Before Deletion</td>
+    <td style="width:45%;border: 2px solid navy;background-color:yellow;text-align:center"><img src="aa\after_delete.jpg" style="width:100%;">After Deletion</td>
+  </tr>
+</table>
+
+<ul>
+  <li>Press and hold the Shift key, and then click anywhere on the canvas to select/deselect multiple data points. The data points will be highlighted in orange, color and they do not have to be adjacent.</li>
+  <li>Then the Delete or Backspace key can be pressed to delete the selected data points.</li>
+  <li>Once one or more data point(s) is/are deleted, the missing data points will be automatically interpolated. Then the portfolio weights and the cumulative wealth will be automatically calculated, and the 3 graphs updated.</li>
+</ul>
+
+<p>To refresh a page, press Shift-F5 in Chrome, or press F5 in Firefox. Then, it will recalculate new path of equity return, portfolio weights and cumulateive wealth.</p>
+
+<p>For questions or contact for further information, please email <a href="mailto:Zili.Zhu@data61.csiro.au">Dr Zili Zhu</a>.</p>
+
+<button onclick="risklab();" class="interface-button">Risklab Web Site</button>
+
+<button onclick="mining();" class="interface-button">Mining Demo</button>
+
+<button onclick="aa();" class="interface-button">Asset Allocation Demo</button>
+
+<br><br><br>
+
+<script>
+function risklab() {
+    window.open("https://research.csiro.au/risklab/");
+}
+
+function mining() {
+    window.open("http://risklab1.it.csiro.au:5000/");
+}
+
+function aa() {
+    window.open("http://risklab1.it.csiro.au:5000/aa");
+}
+</script>
+
+</body>
+
+</html>

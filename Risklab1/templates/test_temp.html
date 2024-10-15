@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="icons/favicon.ico" >
+  <title>SVG 001</title>
+  <style>
+    body{font-family:"Calibri", sans-serif;}
+    svg{border:1px solid #eee;}
+    
+  </style>
+</head>
+
+<body>
+  <h1>Offset Dasharray</h1>
+  
+  <svg id ="mySVG" width="500" height="500" viewBox="0 0 500 500">
+    <path id="myPath" d="M 50 50 q 200 800 400 0" stroke="#ccc"
+     stroke-width="10" fill="none" />
+  </svg>
+  <br>
+  <button onclick="dashAni(myPath, 50, 1500)">start</button>
+  
+  <script>
+    var dashAni = function(path, length, duration){
+      var dashPath = path.cloneNode(true);
+      mySVG.appendChild(dashPath);
+      var pathLen=path.getTotalLength();  
+      var aktPos=0
+      var sumSteps = duration / (1000/60) // 60 pics per second
+      var step=0;
+      var pathAnim;
+      dashPath.setAttribute('stroke-dasharray', length + ' ' + (pathLen - length));
+      dashPath.setAttribute('stroke', "red");
+      dashPath.setAttribute('stroke-dashoffset', aktPos);
+
+      var anim=function(){
+         aktPos = pathLen/sumSteps*step*-1;
+          //aktLen = easeInOutQuad(step/sumSteps)*len;
+         dashPath.setAttribute('stroke-dasharray', length + ' ' + pathLen);
+         dashPath.setAttribute('stroke-dashoffset', aktPos);
+
+         if (step <= (sumSteps)){
+           step++;
+           pathAnim = setTimeout(anim, 1000/60) //1000/60 pics/second
+         } else {
+           mySVG.removeChild(dashPath);
+           clearTimeout(pathAnim);
+         }
+      }
+      anim();
+    }
+    dashAni(myPath, 50, 1500);
+  </script>
+</body>  
+</html>  

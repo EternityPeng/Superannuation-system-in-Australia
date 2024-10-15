@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>SUPA Model Superannuation Accumulator</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="icons/favicon.ico" >
+      <link rel="stylesheet" type="text/css" href="supa/styles.css">
+      <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript" src="ip.js"></script>
+      <script type="text/javascript" src="supacalculator/functions_supacalculator.js"></script>
+   </head>
+   <body>
+      <div class="container">
+         <div id="header" class="col-xs-8">
+           <!--<img src="risklab-logo.png" style="height:125px;float:left;"/> monica*-->
+            <h1 style="padding: 20px 0;">Superannuation Accumulator</h1>
+         </div>
+         <div class="col col-xs-4">
+            <a class="pull-right" href="http://www.data61.csiro.au">
+            <img class="image--fluid" width="212" src="https://research.csiro.au/risklab/wp-content/themes/csiro-utopia/images/data61__logo--on-black.png" scale="0">
+            </a>
+         </div>
+      </div>
+      <div id="wrapper" style="display: block !important;">
+         <div class="function-form">
+            <form id="calculator_form" role="form">
+               <h3>This calculator demonstrates your superannuation accumulation until age 67.</h3>
+               <table class="table">
+                  <tr>
+                     <td>
+                        <label for="age" class="interface-label">Age (min:18, max:66):</label>
+                     </td>
+                     <td>
+                        <input id="age" name="age" type="number" min="18" max="66" class="interface-label" value="30" style="width: 214px;">
+                     </td>
+                     <td>
+                        <label for="income" class="interface-label">Income ($ p.a., before tax and super):</label>
+                     </td>
+                     <td>
+                        <input id="income" name="income" type="number" class="interface-label" value="80000">
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <img src="supa/info.png" class="button-disclaimer" onclick="showDisclaimer(2)"/>
+                        <label for="stategy" class="interface-label">Investment strategy: </label>
+                     </td>
+                     <td>
+                        <select id="strategy" name="strategy">
+                           <option value="cash">Cash</option>
+                           <option value="conservative">Conservative</option>
+                           <option value="moderate">Moderate</option>
+                           <option value="linearDecrease">Linear Decrease</option>
+                           <option value="balance" selected>Balanced</option>
+                           <option value="growth">Growth</option>
+                           <option value="highGrowth">High Growth</option>
+                        </select>
+                     </td>
+                     <td>
+                        <img src="supa/info.png" class="button-disclaimer" onclick="showDisclaimer(3)"/>
+                        <label for="fundlevel" class="interface-label">Fund fees level: </label>
+                     </td>
+                     <td>
+                        <select id="fundlevel" name="fundlevel">
+                           <option value="low">Low</option>
+                           <option value="low-medium">Low-medium</option>
+                           <option value="medium" selected>Medium</option>
+                           <option value="medium-high">Medium-high</option>
+                           <option value="high">High</option>
+                           <option value="other">Other</option>
+                        </select>
+                     </td>
+                  </tr>
+               </table>
+               <br>
+               <label for="superbal" class="interface-label">Superannuation balance: </label>
+               <input id="superbal" name="superbal" type="number" class="interface-label" value="0">
+               <br><br>
+               <input id="calculate" type="button" value="Calculate" onclick="calculateFunc();" class="interface-button">
+               <br>
+               <br>
+               <label class="interface-label">Please use Chrome or Firefox browsers for the best experience. <a style="text-decoration:underline;cursor:pointer;" onclick="showDisclaimer(1)">Disclaimer</a></label>
+               <br>
+            </form>
+            <!-- Assume that retirement age is 67 -->
+            <div id="div_graphs" style="padding:0 1%; text-align:initial;">
+               <div id="visualisation"></div>
+               <h2 id="distribution_title" style="display:none;"></h2>
+               <div id="distribution"></div>
+               <div id="interpretation" style="display:none;">
+                  <table id="tabulation" >
+                     <tr>
+                        <td>Percentiles</td>
+                        <td>5th</td>
+                        <td>25th</td>
+                        <td>50th</td>
+                        <td>75th</td>
+                        <td>95th</td>
+                     </tr>
+                  </table>
+                  <div id="analysis"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="popup" style="display:none;">
+         <div class="overlay" onclick="showDisclaimer(0)"></div>
+         <div id="popup_content1" class="popup-content">
+            <h2>Disclaimer</h2>
+            <ul>
+               <li>The output from the forecasting model and calculation in this website is for general information only and should not be taken as constituting professional advice by CSIRO as the website owner.</li>
+               <li>CSIRO is not a financial adviser, any information presented here is only for the purpose of demonstrating the quantitative models developed at CSIRO. You should seek independent legal, financial, taxation advice to check if the website information is relevant to your own circumstances.</li>
+               <li>CSIRO is not liable for any loss caused, whether due to negligence or otherwise arising from the use of, or reliance on, the information provided directly or indirectly, by use of this website.</li>
+               <li>This is a model, not a prediction.</li>
+               <li>The results from this calculator are based on the limited information that you have provided and assumptions made about the future. The amounts projected are estimates only provided by this model and are not guaranteed.</li>
+               <li>This calculator cannot predict your final superannuation benefit with certainty because this will depend on your personal circumstances including unexpected events in your life and external factors such as investment earnings, tax and inflation. This calculator assumes that you can make steady, predictable contributions and that all assumptions including these external factors will operate at set, steady rates for as long as you remain in the fund, even if events turn out differently from what's assumed. These assumptions are essential so the calculator can show the effect of things you may be able to control, such as choosing a low-fee fund.</li>
+               <li>You should consider updating the projections provided by this model regularly as your circumstances may have changed. You can also change and update some of the assumptions to reflect your personal circumstances.</li>
+               <li>Do not rely solely on this calculator to make decisions about your retirement, there may be other factors to take into account. Consider your own investment objectives, financial situation and needs. You may wish to get advice from a licensed financial adviser.</li>
+            </ul>
+         </div>
+         <div id="popup_content2" class="popup-content">
+            <p>The investment strategies correspond to the following risky asset weight and fees:</p>
+            <table>
+               <tr>
+                  <td>Investment</td>
+                  <td>Cash</td>
+                  <td>Conservative</td>
+                  <td>Linear Decrease</td>
+                  <td>Moderate</td>
+                  <td>Balanced</td>
+                  <td>Growth</td>
+                  <td>High-Growth</td>
+               </tr>
+               <tr>
+                  <td>Risky asset weight (%)</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>max[1-{age}%,0]</td>
+                  <td>50</td>
+                  <td>70</td>
+                  <td>85</td>
+                  <td>100</td>
+               </tr>
+               <tr>
+                  <td>Fees (% pa)</td>
+                  <td>0.05</td>
+                  <td>0.3</td>
+                  <td>0.35</td>
+                  <td>0.4</td>
+                  <td>0.5</td>
+                  <td>0.6</td>
+                  <td>0.7</td>
+               </tr>
+            </table>
+            <p>
+               Some of the rates and prices are provided by the Money-Smart superannuation calculator of the Australian Securities and Investment Commission (ASIC)
+            </p>
+         </div>
+         <div id="popup_content3" class="popup-content">
+            <p>The indirect cost ratio depending on the fund fee level:</p>
+            <table>
+               <tr>
+                  <td>Fee Level</td>
+                  <td>Low</td>
+                  <td>Low-Medium</td>
+                  <td>Medium</td>
+                  <td>Medium-High</td>
+                  <td>High</td>
+               </tr>
+               <tr>
+                  <td>Indirect Cost Ratio (% pa)</td>
+                  <td>0</td>
+                  <td>0.3</td>
+                  <td>0.6</td>
+                  <td>1.3</td>
+                  <td>2</td>
+               </tr>
+            </table>
+            <p>
+               Some of the rates and prices are provided by the Money-Smart superannuation calculator of the Australian Securities and Investment Commission (ASIC)
+            </p>
+         </div>
+      </div>
+      <div>
+         <img class="button-link" src="supa/buttonlink.png" onclick="webLink();"/>
+      </div>
+      <script>
+         function webLink() {
+             window.open("http://"+ip_addr+":5000/supadrawdown");
+         }
+      </script>
+   </body>
+</html>

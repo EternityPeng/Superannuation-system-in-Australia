@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<!--
+
+Produced on 12/07/2017 for Data61 CSIRO Australia. Code uses the D3.js library V3 found at https://d3js.org/d3.v3.min.js
+
+Code influenced by D3.js examples found at bl.ocks.org and other websites. Specific projects referenced are found (currently) below:
+
+      - http://www.d3noob.org/2014/07/my-favourite-tooltip-method-for-line.html
+      - http://bl.ocks.org/d3noob/7030f35b72de721622b8
+      - http://blog.scottlogic.com/2014/09/19/interactive.html
+      - http://bl.ocks.org/d3noob/5d621a60e2d1d02086bf
+      - https://www.dashingd3js.com/lessons/making-dynamic-scales-and-axes
+      - http://bl.ocks.org/asielen/44ffca2877d0132572cb
+      - http://bl.ocks.org/sgruhier/1d692762f8328a2c9957
+
+Last Updated 04/08/2017
+
+finalCopy.html Handles the rendering of graphs on a html page with the support of JavaScript. It calls the pathGraphFinal.js file to create
+a pricelineGraph, and holds all methods required for the construction of a switching boundaries plot.
+
+Author: M.Watts
+Version: 1
+
+-->
+
+<!--
+
+FILE OVERVIEW:
+
+EDIT tag is used in the comments near functions/lines of code that have been identified as needing or benefitting from updates. Unfortunately, these were
+not able to be done in the timeframe due to certain constraints. A case matching search for 'EDIT' will quickly navigate you to the appropriate places.
+
+CSS Styling Elements: Lines 70 - 254
+
+HTML Elements (User Interface): Lines 258 - 328
+
+Global Variables: Lines 334 - 438
+
+    - Graph Appearance and Animation: Lines 341 - 372
+
+    - Legend: Lines 376 - 394
+
+    - Labels: Lines 398 - 416
+
+    - Values: Lines 420 - 432
+
+Functions: Lines 441 - 1290
+
+Switching Boundary Graph: Lines 1293 - 1895
+
+    - Static Graph Data: Lines 1295 - 1421
+
+    - Dynamic Graph Data: Lines 1422 - 1762
+
+    - Dynamic Graph Features: Lines 1765 - 1892
+
+Price Line Graph: Lines 1897 - 1913
+
+    - Graph Initialisation: Lines 1897 - 1901
+
+    - Update Callback Function: Lines 1905 - 1914
+
+
+-->
+
+<!-- HTML Elements (UI) and positioning -->
+
+<html>
+  <head>
+    <title>Mining Data Graphs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" href="icons/favicon.ico" >
+    <link rel="stylesheet" type="text/css" href="mining/styles.css">
+    
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="ip.js"></script>
+    <script type="text/javascript" src="mining/functions.js"></script>
+    <script type="text/javascript" src="mining/priceline-graph.js"></script>
+  </head>
+
+  <body>
+
+    <div style="overflow-x:auto;">
+      <table>
+        <tr>
+          <td id="td1" width="75%">
+            <div id="pathSVG" class="svg-inwrap"></div>
+          </td>
+          <td id="td2" width="1%"></td>
+          <td id="td3" width="24%">
+            <input id="frameNumber" type="number" min="0" value="0" max="999" onchange="frameChangeUpdate(false);" class="interface-label">
+            <label for="frameNumber" class="interface-label">Decision Time</label>
+
+            <br><br>
+
+            <input id="playAnimation" type="button" value="Play" onclick="animateFunc();" class="interface-button">
+            <label for="playAnimation" class="interface-label">Play/Pause Animation</label>
+
+            <br><br>
+
+            <input id="recalculatePath" type="button" value="Recalculate" onclick="recalculatePath();" class="interface-button">
+            <label for="recalculatePath" class="interface-label">Recalculate New Path</label>
+
+            <p id="debug1" class="interface-label">Decision Time = </p>
+            <p id="debug2" class="interface-label">Price = </p>
+            <p id="debug3" class="interface-label">Reserve = </p>
+            <p id="debug4" class="interface-label">Regime = </p>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td id="td11" width="75%">
+            <div id="visualisation" class="svg-inwrap2"></div>
+          </td>
+          <td id="td12" width="1%"></td>
+          <td id="td13" width="24%">
+            <input type="button" value="Help" onclick="mineHelpFunc();" class="interface-button">
+
+            <br><br>
+            
+            <input id="viewTooltip" type="button" value="Off" onclick="updateViewTooltip();" class="interface-button">
+            <label for="viewTooltip" class="interface-label">View Price Tooltip</label>
+
+            <br><br>
+
+            <input id="dynamicUpdate" type="button" value="Off" onclick="updateDynamicUpdate();" class="interface-button">
+            <label for="dynamicUpdate" class="interface-label">Update Switching Boundary with Price Observation</label>
+
+            <br><br>
+
+            <input id="observedPriceDot" type="button" value="Off" onclick="updatePriceDot();" class="interface-button">
+            <label for="observedPriceDot" class="interface-label">Display Current Operating Regime</label>
+
+            <br><br>
+
+            <input id="editPrices" type="button" value="Off" onclick="updateEditPrices();" class="interface-button">
+            <label for="editPrices" class="interface-label">Enable Price Editing</label>
+
+            <br><br>
+
+            <input id="autoFillPath" type="button" value="Off" onclick="autoInterpolatePath();" class="interface-button">
+            <label for="autoFillPath" class="interface-label">Automatically Interpolate Unfilled Points</label>
+
+            <br><br>
+
+            <input id="clearPath" type="button" value="Clear" onclick="clearPath();" class="interface-button">
+            <label for="clearPath" class="interface-label">Clear Current Path</label>
+
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <script type="text/javascript" src="mining/main.js"></script>
+
+  </body>
+
+</html>

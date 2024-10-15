@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Asset Allocation Data Graphs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" href="icons/favicon.ico" >
+    <link rel="stylesheet" type="text/css" href="aa/styles.css">
+    
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="ip.js"></script>
+    <script type="text/javascript" src="aa/functions_aa.js"></script>
+    <script type="text/javascript" src="aa/line-graph.js"></script>
+    <script type="text/javascript" src="aa/barchart.js"></script>
+  </head>
+
+  <body>
+
+    <div style="overflow-x:auto;">
+      <table>
+        <tr>
+          <td id="td01" width="49.5%">
+            <div id="pathSVG1" class="svg-inwrap"></div>
+          </td>
+          <td id="td02" width="1%"></td>
+          <td id="td03" width="49.5%">
+            <div id="pathSVG2" class="svg-inwrap"></div>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td id="td11" width="70%">
+            <div id="pathSVG3" class="svg-inwrap2"></div>
+          </td>
+          <td id="td12" width="2%"></td>
+          <td id="td13" width="28%">
+            <input type="button" value="Help" onclick="aaHelpFunc();" class="interface-button">
+
+            <br><br>
+            
+            <input id="frameNumber" type="number" min="0" value="0" max="12" onchange="frameChangeUpdate(false);" class="interface-label">
+            <label for="frameNumber" class="interface-label">Time Step</label>
+
+            <br><br>
+
+            <input id="playAnimation" type="button" value="Play" onclick="animateFunc();" class="interface-button">
+            <label for="playAnimation" class="interface-label">Play/Pause Animation</label>
+
+            <br><br>
+
+            <input id="recalculatePath" type="button" value="Recalculate" onclick="recalculatePath();" class="interface-button">
+            <label for="recalculatePath" class="interface-label">Recalculate New Path</label>
+
+            <br><br>
+
+            <input id="editPrices" type="button" value="Off" onclick="updateEditPrices();" class="interface-button">
+            <label for="editPrices" class="interface-label">Enable Price Editing</label>
+
+            <br><br>
+
+            <p id="debug1" class="interface-label">Month: </p>
+            <p id="debug2" class="interface-label">Asset Return = </p>
+            <p id="debug3" class="interface-label">Wealth = </p>
+            <p id="debug4" class="interface-label">Weights: Cash = </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <script type="text/javascript" src="aa/main_aa.js"></script>
+
+  </body>
+
+</html>

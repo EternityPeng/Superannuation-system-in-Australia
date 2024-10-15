@@ -1,0 +1,627 @@
+<!-- CSS Styling Elements -->
+/*
+    The following define default class behaviour. These are for the paths, lines, areas etc.
+*/
+
+html {}
+
+body {
+	min-width: 1200px;
+	font-family: Calibri, sans-serif;
+	font-size: 18px;
+	margin: 0;
+}
+
+table {
+	width: 100%;
+}
+
+th {
+	height: 1px;
+}
+
+#visualiser_yaxisLeft {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+#visualiser_xaxis {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+path {
+	stroke: steelblue;
+	fill: none;
+}
+
+.axis {
+	font-size: 140%;
+}
+
+.axis path;
+.axis line {
+	fill: none;
+	stroke: grey;
+	stroke-width: 2;
+	shape-rendering: crispEdges;
+}
+
+.priceLine {
+	fill: none;
+	stroke-width: 4;
+}
+
+.open {
+	stroke: #006D2C;
+}
+
+.closed {
+	stroke: #E87722;
+}
+
+.abandoned {
+	stroke: #DF1795;
+}
+
+.infeasible {
+	stroke: #DEEBF7;
+}
+
+.depleted {
+	stroke: #E4002B;
+}
+
+circle {
+	fill: #000000;
+}
+
+circle.selected {
+	fill: orange;
+	stroke: black;
+}
+
+circle.unchanged {
+	fill: black;
+	stroke: black;
+}
+
+circle:hover {
+	fill: orange;
+	stroke: black;
+}
+
+circle.selected:hover {
+	fill: orange;
+	stroke: black;
+}
+
+circle.unchanged:hover {
+	fill: black;
+	stroke: black;
+}
+
+.area {
+	fill: lightsteelblue;
+	stroke-width: 0;
+}
+
+.legend {
+	font-size: 16px;
+	font-weight: bold;
+	text-anchor: middle;
+}
+
+.legend rect {
+	fill: white;
+	stroke: black;
+	opacity: 0.8;
+}
+
+.legend-box {
+	display: inline-block;
+	position: relative;
+	height: 50%;
+	outline: inherit;
+}
+
+.legend-label {
+	font-size: 1.3vw;
+}
+
+.legend-name {
+	font-size: 1.0vw;
+}
+
+.legend {
+	font-size: 9px;
+}
+
+rect {
+	stroke-width: 4;
+}
+
+
+/*
+    svg-container and svg-content classes allow the dynamic rescaling of objects when a window is resized etc. The code for these was inspired by
+    this thread:
+
+    - https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js
+*/
+
+.pct-help {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 110%;
+	text-align: center;
+	padding: 1px;
+	display: none;
+}
+
+#pct_05 {
+	color: red;
+}
+
+#pct_25 {
+	color: navy;
+}
+
+#pct_50 {
+	color: green;
+}
+
+.interface-label {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 110%;
+	padding: 1px;
+}
+
+.interface-button {
+	width: auto;
+	min-width: 100px;
+	height: auto;
+	min-height: 30px;
+	font-size: 16px;
+	overflow: auto;
+	border-radius:5px;
+}
+
+
+/* border not seen */
+
+.svg-wrapper {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	height: 75%;
+	//border: 3px solid red;
+}
+
+
+/* LHS + RHS visualisation - svg, inner border
+*/
+
+.svg-content {
+	width: 100%;
+	/*border: 1px solid blue;
+  position: absolute;*/
+}
+
+
+/* line graphs - svg, inner border */
+
+.svg-container {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100%;
+	padding-bottom: 20px;
+	/*height: 0;
+  padding-bottom: 40.00%;
+  //overflow: hidden;
+  //border: 1px solid red;
+  position: relative;*/
+}
+
+/* bar chart */
+
+.svg-container2 {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100%;
+	height: 0;
+	padding-bottom: 26.67%;
+	//overflow: hidden;
+	//border: 1px solid red;
+	position: relative;
+}
+
+
+/* RHS legend area */
+
+.svg-container2-legend {
+	font-family: Arial, Helvetica, sans-serif;
+	display: inline-block;
+	width: 30%;
+	height: 0;
+	padding-bottom: 35.00%;
+	overflow: visible;
+	//border: 1px solid blue;
+	position: relative;
+}
+
+div.holder {
+	//border: 2px solid black;
+}
+
+
+/* line graphs - whole div */
+
+.svg-inwrap,.svg-inwrap1, .svg-inwrap2 {
+	display: inline-block;
+	width: 100%;
+	height: 0;
+	padding-bottom: 40.00%;
+	//border: 1px solid orange;
+	position: relative;
+}
+
+
+/* bar chart - whole div */
+
+/* .svg-inwrap2 {
+	display: inline-block;
+	width: 100%;
+	height: 0;
+	padding-bottom: 26.67%;
+	//border: 1px solid orange;
+	position: relative;
+} */
+
+#numYears {
+	width: 2em;
+}
+
+#numPaths {
+	width: 2em;
+}
+
+div#wrapper {
+	display: inline-block;
+	margin: 8px;
+}
+
+
+/**
+ *  This section has been modified for Supa Model web designs
+ */
+
+/** Stage 1 **/
+#div_tab {
+	text-align: center;
+	background-color: #00313C;
+}
+
+.tab-button {
+	padding: 10px 5px;
+	background-color: inherit;
+	border-color: inherit;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	font-size: 70%;
+}
+
+.tab-button:hover {
+	background-color: #004B87;
+}
+
+.tab-active {
+	background-color: #2FB787;
+}
+
+.hide-circle {
+	display: none;
+}
+
+/** Website Headers **/
+.container {
+	background-color: black;
+	display: flex;
+	align-items: center;
+	background-image: url("data61__hexagon-overlay--small.png");
+	color: #FFF;
+}
+
+#header {
+	padding: 0 5%;
+}
+
+.col {
+	padding-right: 5%;
+}
+
+.col-xs-4 {
+	width: 33.33333%;
+}
+
+.col-xs-8 {
+	width: 66.66667%;
+}
+
+.pull-right {
+	float: right !important;
+}
+
+/** General Web CSS **/
+#divgraphs {
+	width:1200px;
+	margin:auto;
+}
+
+.table {
+	width:1100px;
+	margin: auto;
+}
+
+select {
+	font-size: 16px;
+}
+
+#div_graphs {
+	margin-top: 10px;
+}
+
+.function-form {
+	text-align: center;
+	border: 5px solid #2FB787;
+	padding: 15px;
+	border-radius: 25px;
+	margin: 0 8px;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0.5;
+}
+
+.overlay2 {
+	fill: none;
+	pointer-events: all;
+}
+
+.popup-content {
+	position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 70%;
+  height: 85%;
+  margin: auto;
+  padding: 2% 5%;
+  background-color: #fff;
+  overflow-y: scroll;
+  text-align: justify;
+	display: none;
+}
+
+.popup-content table {
+	border-collapse: collapse;
+	font-size:95%;
+}
+
+.popup-content table td {
+	border: 1px solid black;
+	padding: 5px;
+	text-align: center;
+}
+
+#popup_content2,#popup_content3, #popup_content5{
+	height: 250px;
+}
+
+#popup_content4{
+	height: 550px;
+}
+
+.button-link {
+	display: none;
+	position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  margin: auto;
+  width: 15%;
+  opacity: 0;
+	cursor: pointer;
+}
+
+.button-disclaimer {
+	height:25px;
+	vertical-align:bottom;
+	cursor:pointer;
+}
+
+/** Stage 2 **/
+.focus circle {
+  fill: #FFF;
+  stroke: rgb(47, 183, 135);
+  stroke-width: 5px;
+}
+
+.hover-line {
+  stroke: rgb(47, 183, 135);
+  stroke-width: 2px;
+  stroke-dasharray: 3,3;
+}
+
+.tooltip-text {
+	stroke: #000;
+	fill: #000;
+  stroke-width: 1;
+  font-size: 180%;
+  opacity: 1;
+}
+
+#interpretation {
+  text-align: justify;
+}
+
+#interpretation div {
+  padding: 0 10%;
+}
+
+#tabulation {
+  border-collapse: collapse;
+  text-align: center;
+  margin-bottom:10px;
+	font-size:120%;
+}
+
+#tabulation td {
+  border: 2px solid black;
+}
+#distribution_title {
+  text-align:center;
+}
+
+/** Stage 3 **/
+#divgraphs h4 {
+	text-align: center;
+	margin-top: 0;
+}
+
+.range-labels {
+	list-style: none;
+	width: 180px;
+	margin: auto;
+	padding: 0;
+}
+
+#annuity1, #annuity2 {
+	color: #2FB787;
+	font-weight: bold;
+  position: absolute;
+  margin-left: 50px;
+}
+
+input[type="button"]{
+ -moz-appearance: none;
+ -webkit-appearance: none;
+ appearance: none;
+}
+
+input[type="button"]:active{
+    background: #2FB787;
+}
+
+input[type="button"]:focus {
+    outline: 1px solid #fff;
+}
+
+input[type="range"]{
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 8px;
+		background-image: -webkit-gradient(
+				linear,
+				left top,
+				right top,
+				color-stop(0, #2FB787),
+				color-stop(0, #ddd)
+		);
+}
+
+#aRange2 {
+	background-image: -webkit-gradient(
+			linear,
+			left top,
+			right top,
+			color-stop(0.6, #2FB787),
+			color-stop(0.6, #ddd)
+	);
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+		border:1px solid grey;
+    border-radius: 50%;
+    background: #2FB787;
+		cursor:default;
+		box-shadow: 2px 2px 2px #000;
+}
+
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: #2FB787;
+	height: 8px;
+	border-radius: 6px;
+}
+input[type="range"]::-moz-range-track {
+  background-color: #ddd;
+	height: 8px;
+	border-radius: 6px;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: #2FB787;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: #ddd;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+.tab {
+	width:550px;
+}
+
+#drawdown_form td:nth-child(even) {
+	width:20%;
+}
+
+#drawdown_form td:nth-child(3) {
+	width:40%;
+}
+
+#calculator_form table td:nth-child(even) {
+	width:20%;
+}
+
+#calculator_form table td:nth-child(3) {
+	width:40%;
+}
+
+#calculator_form table td input,select {
+	width: 100%;
+}
+
+#calculator_form table td:nth-child(2n+3) {
+	text-align:left;
+	padding-left: 100px;
+}
+
+#drawdown_form td:nth-child(odd) {
+	text-align: left;
+}
+
+#drawdown_form td:nth-child(2n+3) {
+	padding-left: 100px;
+}
+
+/* Stage 4 */
+#pm_info {
+	border: 2px solid black;
+	background-color: #eff;
+	margin: 0 200px;
+	padding: 20px 0;
+}
