@@ -1,0 +1,54 @@
+23:20:31,682 root INFO RUNNING
+23:20:31,683 tornado.access INFO 200 GET / (::1) 2.22ms
+23:20:31,741 tornado.access WARNING 404 GET /favicon.ico (::1) 3.84ms
+23:22:50,643 root INFO RUNNING
+23:22:50,645 tornado.access INFO 200 GET / (::1) 2.65ms
+23:26:58,95 werkzeug INFO  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+23:27:08,970 root INFO RUNNING
+23:27:08,970 tornado.access INFO 200 GET / (::1) 1.68ms
+23:27:10,979 root INFO RUNNING
+23:27:10,980 tornado.access INFO 200 GET / (::1) 2.27ms
+23:27:12,757 root INFO RUNNING
+23:27:12,759 tornado.access INFO 200 GET / (::1) 2.78ms
+23:27:13,862 root INFO RUNNING
+23:27:13,866 tornado.access INFO 200 GET / (::1) 4.77ms
+23:27:55,959 root INFO RUNNING
+23:27:55,960 tornado.access INFO 200 GET / (::1) 1.78ms
+23:29:12,430 tornado.access INFO 200 GET /test_temp (::1) 7.90ms
+23:29:12,487 tornado.access INFO 200 GET /icons/favicon.ico (::1) 3.38ms
+23:29:30,187 root INFO Mine Data
+23:29:30,187 root INFO /Users/eternity/Code/GitHub/Superannuation-system-in-Australia/Risklab1
+23:29:30,192 tornado.access ERROR 500 GET /mine_main (::1) 5.40ms
+23:29:45,679 root INFO Recalculating Path
+23:29:45,681 tornado.access ERROR 500 GET /mine_recalculate (::1) 3.35ms
+23:29:49,40 root INFO Recalculating Path
+23:29:49,42 tornado.access ERROR 500 GET /mine_recalculate (::1) 2.58ms
+23:29:55,903 tornado.access INFO 200 GET /aa (::1) 4.06ms
+23:29:55,874 tornado.access INFO 200 GET /aa/styles.css (::1) 27.59ms
+23:29:55,875 tornado.access INFO 200 GET /ip.js (::1) 27.27ms
+23:29:55,875 tornado.access INFO 200 GET /aa/main_aa.js (::1) 27.31ms
+23:29:55,876 tornado.access INFO 200 GET /aa/functions_aa.js (::1) 29.31ms
+23:29:55,876 tornado.access INFO 200 GET /aa/line-graph.js (::1) 29.37ms
+23:29:55,877 tornado.access INFO 200 GET /aa/barchart.js (::1) 29.24ms
+23:30:51,13 tornado.access INFO 200 GET /aa_help (127.0.0.1) 3.45ms
+23:30:51,42 tornado.access INFO 200 GET /help_styles.css (127.0.0.1) 3.94ms
+23:30:51,43 tornado.access INFO 200 GET /aa/buttons.jpg (127.0.0.1) 4.96ms
+23:30:51,43 tornado.access INFO 200 GET /aa/equity1.jpg (127.0.0.1) 7.28ms
+23:30:51,57 tornado.access INFO 200 GET /aa/debug1.jpg (127.0.0.1) 4.39ms
+23:30:51,58 tornado.access INFO 200 GET /aa/move.jpg (127.0.0.1) 9.10ms
+23:30:51,59 tornado.access INFO 200 GET /aa/wealth1.jpg (127.0.0.1) 10.61ms
+23:30:51,60 tornado.access INFO 200 GET /aa/after_delete.jpg (127.0.0.1) 11.12ms
+23:30:51,61 tornado.access INFO 200 GET /aa/before_delete.jpg (127.0.0.1) 11.83ms
+23:30:51,62 tornado.access INFO 200 GET /aa/portfolio1.jpg (127.0.0.1) 12.61ms
+23:30:51,79 tornado.access INFO 200 GET /icons/favicon.ico (127.0.0.1) 0.84ms
+23:32:45,839 tornado.access INFO 200 GET /pm (127.0.0.1) 10.45ms
+23:32:45,865 tornado.access INFO 200 GET /supa/styles.css (127.0.0.1) 5.43ms
+23:32:45,865 tornado.access INFO 200 GET /ip.js (127.0.0.1) 4.09ms
+23:32:45,866 tornado.access INFO 200 GET /pm/functions_pm.js (127.0.0.1) 4.28ms
+23:32:45,869 tornado.access INFO 200 GET /supa/info.png (127.0.0.1) 2.04ms
+23:32:46,547 tornado.access INFO 200 GET /supa/data61__hexagon-overlay--small.png (127.0.0.1) 4.93ms
+23:33:35,618 tornado.access ERROR 500 GET /pm_main (127.0.0.1) 3.14ms
+23:33:35,661 tornado.access WARNING 404 GET /favicon.ico (127.0.0.1) 1.47ms
+23:33:49,676 tornado.access INFO 200 GET /supadrawdown (127.0.0.1) 13.84ms
+23:33:49,700 tornado.access INFO 200 GET /supadd/functions_supadrawdown.js (127.0.0.1) 1.96ms
+23:35:17,841 tornado.access INFO 200 GET /aa_help (127.0.0.1) 1.10ms
