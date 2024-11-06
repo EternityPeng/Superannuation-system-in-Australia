@@ -70,7 +70,7 @@ var pct_timer;
 function getSupaData() {
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://" + ip_addr + ":5000/supa_main",
+        url: "http://" + ip_addr + ":5001/supa_main",
         async: false,
         //timeout: 18000,
         data: {curve: 1}

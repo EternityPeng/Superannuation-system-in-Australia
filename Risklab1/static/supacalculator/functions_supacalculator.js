@@ -48,7 +48,7 @@ $(document).ready(function() {
 function getSuperBalance() {
 	var jqXHR = $.ajax({
 		type: "POST",
-		url: "http://" + ip_addr + ":5000/calculator_main",
+		url: "http://" + ip_addr + ":5001/calculator_main",
 		async: false,
 		data: $('form').serialize(),
 		error: function(error) {

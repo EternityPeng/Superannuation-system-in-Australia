@@ -11,8 +11,8 @@ from flask import make_response
 
 import numpy as np
 
-import SimulationExtendedSUPA as SIM
-import AccumulationUser2 as Accumulation
+import modules.SimulationExtendedSUPA as SIM
+import modules.AccumulationUser2 as Accumulation
 
 import json
 import datetime

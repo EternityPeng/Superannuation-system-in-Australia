@@ -9,7 +9,7 @@ import pandas as pd
 import sys
 sys.path.append("modules")
 
-import SimulationExtendedSUPA as SIM
+import modules.SimulationExtendedSUPA as SIM
 
 
 import logging

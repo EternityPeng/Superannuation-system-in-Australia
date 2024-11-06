@@ -21,10 +21,14 @@ import pm
 
 #Setup a log file to track the service.
 
-logging.basicConfig(filename='testlog', filemode='a',
-format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-datefmt='%H:%M:%S',
-level=logging.INFO)
+logging.basicConfig(
+    filename='testlog',            # 日志文件名
+    filemode='a',                  # 文件打开模式，'a'表示追加模式
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',  # 日志格式
+    datefmt='%H:%M:%S',            # 时间格式
+    level=logging.INFO             # 日志级别
+)
+
 
 app = Flask(__name__, static_url_path="", static_folder="static")
 CORS(app)
@@ -128,5 +132,6 @@ def render_pm_main():
 if __name__ == "__main__":
     # here is starting of the development HTTP server
     app.run()
+    # app.run(host='127.0.0.1', debug=True, port=5001)
     #app.run(host='127.0.0.1', debug=True, port=5000)
     #manager.run()
