@@ -62,7 +62,7 @@ function getPM() {
 
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://" + ip_addr + ":5000/pm_main",
+        url: "http://" + ip_addr + ":5001/pm_main",
         async: false,
         data: $('#form').serialize(),
         error: function(error) {

@@ -74,7 +74,7 @@ var dt = 1/numDecisions;   // = 0.5 year = The time between each decision (years
 function getMineData() {
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://" + ip_addr + ":5000/mine_main",
+        url: "http://" + ip_addr + ":5001/mine_main",
         async: false,
         //timeout: 18000,
         data: {curve: 1}
@@ -91,7 +91,7 @@ function getMineData() {
 function getNewPath() {
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://" + ip_addr + ":5000/mine_recalculate",
+        url: "http://" + ip_addr + ":5001/mine_recalculate",
         async: false,
         //timeout: 18000,
         data: {curve: 1}
@@ -1632,7 +1632,7 @@ function mineHelpFunc() {
                    ",width="+width+
                    ",height="+height;
     
-    var url = "http://" + ip_addr + ":5000/mine_help";
+    var url = "http://" + ip_addr + ":5001/mine_help";
     //window.open(url, "_blank", specs);
     window.open(url);
 }

@@ -14,8 +14,8 @@ sys.path.append("modules")
 
 import numpy as np
 
-import SimulationExtendedSUPA as SIM
-from RetirementIncome2 import RetirementIncome as RI
+import modules.SimulationExtendedSUPA as SIM
+from modules.RetirementIncome2 import RetirementIncome as RI
 
 import json
 import datetime

@@ -35,7 +35,7 @@ var transition_easing = d3.easeSin;
 function getAAData() {
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://" + ip_addr + ":5000/aa_main",
+        url: "http://" + ip_addr + ":5001/aa_main",
         async: false,
         //timeout: 18000,
         data: {curve: 1}
@@ -548,7 +548,7 @@ function autoInterpolatePath() {
 function getNewPath() {
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://" + ip_addr + ":5000/aa_recalculate",
+        url: "http://" + ip_addr + ":5001/aa_recalculate",
         async: false,
         //timeout: 18000,
         data: {curve: 1}
@@ -603,7 +603,7 @@ function aaHelpFunc() {
                    ",width="+width+
                    ",height="+height;
     
-    var url = "http://" + ip_addr + ":5000/aa_help";
+    var url = "http://" + ip_addr + ":5001/aa_help";
     //window.open(url, "_blank", specs);
     window.open(url);
 }

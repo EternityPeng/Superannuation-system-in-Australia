@@ -15,10 +15,10 @@ sys.path.append("pm")
 import numpy as np
 import math
 
-import SimulationExtendedSUPA as SIM
-from RetirementIncome_PM import RetirementIncome as RI
-import CONST
-import Metrics as MT
+import modules.SimulationExtendedSUPA as SIM
+from modules.RetirementIncome_PM import RetirementIncome as RI
+import modules.CONST as CONST
+import modules.Metrics as MT
 
 import json
 import datetime
