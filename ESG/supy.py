@@ -113,8 +113,8 @@ if __name__ == "__main__":
     np.random.seed(1000)
 
     # 定义模拟年数和路径数
-    t_max = 20  # 模拟年数
-    m_sim = 10  # 模拟路径数量
+    t_max = 80  # 模拟年数
+    m_sim = 30  # 模拟路径数量
 
     # 运行模拟并获取数据
     (params, numVar, t_max, m_sim, t, qt, wt, lt, st, ct, yt, dt, pt,
@@ -129,6 +129,6 @@ if __name__ == "__main__":
     # 可添加更多 print 语句以查看其他经济指标数据
 
     # 其他模拟数据可根据需要打印和分析
-    
+
     # 绘制模拟结果
     plot_simulation_results(t, qt, wt, lt, st, ct, yt, dt, pt, et, nt, bt, ot, ht, ut)

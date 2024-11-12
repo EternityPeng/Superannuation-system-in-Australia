@@ -1,0 +1,240 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Economic Simulation</title>-->
+<!--    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Adjust Simulation Parameters</h1>-->
+<!--    <form id="simulationForm">-->
+<!--        <label for="t_max">Number of Years (t_max):</label>-->
+<!--        <input type="number" id="t_max" name="t_max" value="20" min="1" required>-->
+<!--        <br><br>-->
+
+<!--        <label for="m_sim">Number of Paths (m_sim):</label>-->
+<!--        <input type="number" id="m_sim" name="m_sim" value="10" min="1" required>-->
+<!--        <br><br>-->
+
+<!--        <button type="submit">Run Simulation</button>-->
+<!--    </form>-->
+
+<!--    <div id="plot" style="width: 100%; height: 600px;"></div>-->
+
+<!--    <script>-->
+<!--        $('#simulationForm').on('submit', function(event) {-->
+<!--            event.preventDefault();-->
+
+<!--            $.ajax({-->
+<!--                type: 'POST',-->
+<!--                url: '/simulate',-->
+<!--                data: {-->
+<!--                    t_max: $('#t_max').val(),-->
+<!--                    m_sim: $('#m_sim').val()-->
+<!--                },-->
+<!--                success: function(response) {-->
+<!--                    $('#plot').html(response);-->
+<!--                },-->
+<!--                error: function(error) {-->
+<!--                    alert("Error: " + error.statusText);-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>SUPA Model Economic Simulation</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="container mt-5">-->
+<!--    <h1 class="text-center">SUPA Model Economic Simulation</h1>-->
+<!--    <p class="text-center text-muted">Adjust parameters and view the future economic simulation</p>-->
+
+<!--    &lt;!&ndash; Parameter adjustment form &ndash;&gt;-->
+<!--    <form method="post" class="mb-4">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <label for="t_max" class="form-label">Simulation Years (t_max):</label>-->
+<!--                <input type="number" name="t_max" id="t_max" class="form-control" value="{{ t_max }}" min="1" max="100">-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--                <label for="m_sim" class="form-label">Simulation Paths (m_sim):</label>-->
+<!--                <input type="number" name="m_sim" id="m_sim" class="form-control" value="{{ m_sim }}" min="1" max="100">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="text-center mt-3">-->
+<!--            <button type="submit" class="btn btn-primary">Run Simulation</button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--    &lt;!&ndash; Display Plotly graph &ndash;&gt;-->
+<!--    <div class="plot-container">-->
+<!--        {{ plot_html|safe }}-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Simulation</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- 自定义CSS样式 -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #4A90E2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #simulationForm {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px auto;  /* 让 plot 居中显示 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            font-weight: 500;
+            color: #333;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4A90E2;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #357ABD;
+        }
+
+        #plot {
+            width: 80vw;  /* 设置宽度为视口宽度的 80% */
+            max-width: 1200px;  /* 可选：最大宽度限制 */
+            height: 600px;
+            margin: 30px auto;  /* 让 plot 居中显示 */
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            #simulationForm, #plot {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>ADJUST THE SIMULATION PARAMETERS</h1>
+        <form id="simulationForm">
+            <label for="t_max">simulation Year (t_max):</label>
+            <input type="number" id="t_max" name="t_max" value="20" min="1" required>
+
+            <label for="m_sim">Number of simulated paths (m_sim):</label>
+            <input type="number" id="m_sim" name="m_sim" value="10" min="1" required>
+
+            <button type="submit">Run Simulation</button>
+        </form>
+
+        <div id="plot"></div>
+    </div>
+
+    <script>
+        // 表单提交事件绑定
+        $('#simulationForm').on('submit', function(event) {
+            event.preventDefault();  // 防止页面刷新
+
+            // AJAX 请求
+            $.ajax({
+                type: 'POST',
+                url: '/simulate',
+                data: {
+                    t_max: $('#t_max').val(),
+                    m_sim: $('#m_sim').val()
+                },
+                success: function(response) {
+                    // 将响应的图表HTML插入到#plot区域
+                    $('#plot').html(response);
+                },
+                error: function(error) {
+                    alert("Error: " + error.statusText);  // 错误提示
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
