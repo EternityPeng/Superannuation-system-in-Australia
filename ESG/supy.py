@@ -29,7 +29,7 @@ def getSimulateData(m_sim, t_max):
 
     # 设置模拟的频率和回测参数
     freq = 1  # 每年重新平衡频率 (每年1次)
-    back_test = 0  # 前向模拟（0表示不进行回测）
+    back_test = 0 # 前向模拟（0表示不进行回测）
 
     # 运行前向模拟，生成未来 t_max 年的数据
     model_ExtSUPA.ForwardSimulation(m_sim, t_max, freq, back_test)
@@ -90,9 +90,8 @@ def plot_simulation_results(t, qt, wt, lt, st, ct, yt, dt, pt, et, nt, bt, ot, h
 
     # 添加各经济指标的折线图
     for name, data in indicators.items():
-        # 计算平均值路径
-        avg_data = np.mean(data, axis=0)  # 在模拟路径上取平均
-        fig.add_trace(go.Scatter(x=t, y=avg_data, mode='lines', name=name))
+        for i in range(data.shape[0]):  # 遍历所有模拟路径
+            fig.add_trace(go.Scatter(x=t, y=data[i], mode='lines', name=f"{name} (Path {i+1})"))
 
     # 设置图像布局
     fig.update_layout(
@@ -106,15 +105,14 @@ def plot_simulation_results(t, qt, wt, lt, st, ct, yt, dt, pt, et, nt, bt, ot, h
     # 显示图像
     pio.show(fig)
 
-
 # 主运行部分用于测试
 if __name__ == "__main__":
     # 设置随机种子，确保结果可复现
     np.random.seed(1000)
 
     # 定义模拟年数和路径数
-    t_max = 80  # 模拟年数
-    m_sim = 30  # 模拟路径数量
+    t_max = 10  # 模拟年数
+    m_sim = 10  # 模拟路径数量
 
     # 运行模拟并获取数据
     (params, numVar, t_max, m_sim, t, qt, wt, lt, st, ct, yt, dt, pt,
