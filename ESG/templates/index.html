@@ -23,21 +23,19 @@
                 <option value="wt">Wage Growth (w)</option>
                 <option value="lt">Long-term Rate (l)</option>
                 <option value="st">Short-term Rate (s)</option>
-                <!---<option value="ct">Cash Return (c)</option>
-                <option value="yt">Dividend Yield (y)</option>
-                <option value="dt">Dividend Growth (d)</option>
-                <option value="pt">Stock Price Return (p)</option> -->
                 <option value="et">Stock Total Return (e)</option>
                 <option value="nt">International Stock Total Return (n)</option>
                 <option value="bt">Bond Return (b)</option>
                 <option value="ot">International Bond Return (o)</option>
                 <option value="ht">House Price Growth (h)</option>
-                <!---<option value="ut">Unemployment Rate (u)</option>  -->
             </select>
             <br>
             <button type="submit">Run Simulation</button>
         </form>
-        <div id="plot"></div>
+        <!-- 时间序列图容器 -->
+        <div id="timeSeriesPlot" style="margin-top: 20px;"></div>
+        <!-- 分布图容器 -->
+        <div id="distributionPlot" style="margin-top: 20px;"></div>
     </div>
     <script>
         $('#simulationForm').on('submit', function(event) {
@@ -56,7 +54,10 @@
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 success: function(response) {
-                    $('#plot').html(response);  // 插入图表
+                    // 分割返回的 HTML 用于插入两个图表
+                    const plots = response.split('<!--SPLIT-->');
+                    $('#timeSeriesPlot').html(plots[0]);  // 插入时间序列图
+                    $('#distributionPlot').html(plots[1]);  // 插入分布图
                 },
                 error: function(error) {
                     alert("Error: " + error.statusText);
