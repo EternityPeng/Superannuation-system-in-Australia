@@ -111,13 +111,12 @@ def simulate():
     fig1 = go.Figure()
 
     # Add historical data trace
-    #添加历史数据曲线：
     fig1.add_trace(go.Scatter(
         x=hist_time,
         y=hist_data,
         mode='lines',
         name='Historical Data',
-        line=dict(color='white', width=2)  # Set historical line color to white
+        line=dict(color='white', width=4)  # Set line color to white and increase width
     ))
 
     # Add simulation paths trace
