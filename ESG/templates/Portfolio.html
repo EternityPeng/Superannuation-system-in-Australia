@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Simulation</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- 引入外部CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Economic Simulation</a>
+        <a href="/Inflation_Rate">Inflation Rate</a>
+        <a href="/Wage_Growth">Wage Growth</a>
+        <a href="/Long_term_Interest_Rate">Long-term Interest Rate</a>
+        <a href="/Short_term_Interest_Rate">Short-term Interest Rate</a>
+<!--        <a href="/Cash_Return">Cash Return</a>-->
+<!--        <a href="/Dividend_Yield">Dividend Yield</a>-->
+<!--        <a href="/Dividend_Growth">Dividend Growth</a>-->
+<!--        <a href="/Stock_Price_Return">Stock Price Return</a>-->
+        <a href="/Stock_Total_Return">Stock Total Return</a>
+        <a href="/International_Stock_Total_Return">International Stock Total Return</a>
+        <a href="/Bond_Return">Bond Return</a>
+        <a href="/International_Bond_Return">International Bond Return</a>
+        <a href="/House_Price_Growth">House Price Growth</a>
+        <a href="/Portfolio">Portfolio</a>
+
+<!--        <a href="/Unemployment_Rate">Unemployment Rate</a>-->
+    </nav>
+
+    <div class="container mt-4">
+        <h1>Investment Portfolio Dashboard</h1>
+        <!-- Dash 应用通过 iframe 加载 -->
+    <iframe id="dash-frame" src="/dash/" width="100%" height="600px" style="border:none;"></iframe>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js">
+        // 为导航栏中的每个链接添加点击事件监听器
+        document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            const iframe = document.getElementById('dash-frame');
+            if (iframe) {
+                iframe.src = ''; // 清空当前 iframe 内容
+                setTimeout(() => {
+                    iframe.src = '/dash/'; // 重新加载 iframe
+                }, 100); // 延迟加载避免冲突
+            }
+        });
+    });
+
+        // 在页面加载时强制刷新 iframe
+        window.addEventListener('load', function() {
+            const iframe = document.getElementById('dash-frame');
+            if (iframe) {
+                iframe.contentWindow.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

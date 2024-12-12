@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation Results</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <nav>
+        <a class="navbar-brand" href="/">Economic Simulation</a>
+        <a href="/simulate?indicator=Inflation_Rate">Inflation Rate (q)</a>
+        <a href="/simulate?indicator=Wage_Growth">Wage Growth (w)</a>
+        <a href="/simulate?indicator=Long_term_Interest_Rate">Long-term Interest Rate (l)</a>
+        <a href="/simulate?indicator=Short_term_Interest_Rate">Short-term Interest Rate (s)</a>
+    </nav>
+
+    <div>
+        <h1>Simulation Results</h1>
+        <div id="plot">
+            <!-- 插入图表的 HTML -->
+            {{ plot_html|safe }}
+        </div>
+    </div>
+</body>
+</html>

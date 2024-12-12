@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Simulation</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- 引入外部CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- 引入 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- 引入 Bootstrap JS（确保在 jQuery 之后加载） -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>ADJUST THE SIMULATION PARAMETERS</h1>
+        <form id="simulationForm">
+            <label for="t_max">Simulation Year:</label>
+            <input type="number" id="t_max" name="t_max" value="20" min="1" required><br><br>
+
+            <label for="m_sim">Simulated Path:</label>
+            <input type="number" id="m_sim" name="m_sim" value="10" min="1" required><br><br>
+
+            <button type="submit" class="btn btn-primary">Run Simulation</button>
+        </form>
+    </div>
+
+<!-- 弹窗模态框 -->
+<div class="modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- 弹窗标题，调整关闭按钮居右 -->
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <!-- 标题 -->
+                <h3 class="modal-title mb-0" id="confirmModalLabel" style="white-space: nowrap;">Confirm Information</h3>
+            </div>
+            <!-- 弹窗内容 -->
+            <div class="modal-body text-center">
+                <p class="mb-4">Please confirm the simulation parameters:</p>
+                <!-- 参数展示 -->
+                <div class="d-flex justify-content-center mb-2">
+                    <strong class="mr-2">Simulation Year:</strong>
+                    <span id="t_max_value"></span>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <strong class="mr-2">Number of simulated paths:</strong>
+                    <span id="m_sim_value"></span>
+                </div>
+            </div>
+            <!-- 弹窗底部按钮 -->
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 表单提交事件绑定
+    $('#simulationForm').on('submit', function(event) {
+        event.preventDefault(); // 阻止表单默认提交行为（刷新页面）
+
+        // 获取表单中用户输入的 t_max 和 m_sim 值
+        var t_max = $('#t_max').val();
+        var m_sim = $('#m_sim').val();
+
+        // 将参数值插入到弹窗中的相应位置
+        $('#t_max_value').text(t_max);
+        $('#m_sim_value').text(m_sim);
+
+        // 显示弹窗，等待用户确认
+        $('#confirmModal').modal('show');
+    });
+
+    // 确认按钮点击事件绑定
+    $('#confirmButton').on('click', function() {
+        // 获取用户输入的参数值
+        var t_max = $('#t_max').val();
+        var m_sim = $('#m_sim').val();
+
+        // 通过 AJAX 将数据发送到后端
+        $.ajax({
+            url: '/save_session', // 后端的路由，用于保存 session 数据
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                t_max: t_max,
+                m_sim: m_sim
+            }),
+            success: function(response) {
+                // 检查后端返回的状态
+                if (response.status === 'success') {
+                    // 跳转到目标页面
+                    window.location.href = '/Inflation_Rate';
+                } else {
+                    alert('Failed to save session data.');
+                }
+            },
+            error: function() {
+                alert('Error communicating with server.');
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+
+

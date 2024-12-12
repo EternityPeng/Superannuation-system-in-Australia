@@ -129,7 +129,7 @@ class ExtendedSUPA(SUPAModel):
         alpha_u_short = self.Parameter['alpha_u_short']
         sigma_unemply = self.Parameter['epsStd_unemply']
         pre_unemply = self.Parameter['pre_unemply']
-        
+
         # pick initial values to start simulation.
         # forward simulation, start from the last historical values
         if back_test == 0:            
@@ -144,6 +144,7 @@ class ExtendedSUPA(SUPAModel):
             pre_P_index=self.Parameter['pre_shareIndex']
             pre_Hgr = self.Parameter['pre_Hgr']
             pre_unemply = self.Parameter['pre_unemply']
+            pre_gold = self.Parameter['pre_gold']
         else: #initial value for backtesting is the first historical values
             pre_inflation=self.Parameter['inflation_HistInit']
             pre_longTerm=self.Parameter['longTerm_HistInit']
@@ -156,6 +157,8 @@ class ExtendedSUPA(SUPAModel):
             pre_P_index=self.Parameter['P_index_HistInit']
             pre_Hgr = self.Parameter['houseGR_HistInit']
             pre_unemply = self.Parameter['unemply_HistInit']
+            pre_gold = self.Parameter['pre_gold']
+
                 
         
         # set random seed
@@ -179,7 +182,8 @@ class ExtendedSUPA(SUPAModel):
         intBond = SIM_X[:,:,11] # o[t]
         house_gr = SIM_X[:,:,12] # h[t]
         unemply =  SIM_X[:,:,13] # u[t]
-        
+        gold = SIM_X[:,:,14] # g[t]
+
         #Initial values before simulation 
         inflation[:,0]= pre_inflation #initial inflation
         wage[:,0]= psi2_wage * inflation[:,0] + mu_wage #initial wage inflation
@@ -285,7 +289,7 @@ class ExtendedSUPA(SUPAModel):
             
             z_house = np.random.randn(NumOfSim)    
             house_gr[:,tt+1] = alpha_Hgr * house_gr[:,tt] + alpha_Hgr_inflation * inflation[:,tt] + sigma_Hgr * z_house * sqrt_dt
-            
+
             z_unemply = np.random.randn(NumOfSim)
             unemply[:,tt+1] = unemply[:,tt] + kappa_unemply * ( mu_unemply - unemply[:,tt]) * dt + \
             alpha_u_inf * (inflation[:,tt+1]-inflation[:,tt]) + alpha_u_short * (snoq - pre_snoq) + sigma_unemply * z_unemply * sqrt_dt
@@ -307,7 +311,8 @@ class ExtendedSUPA(SUPAModel):
         SIM_X[:,:,11] = intBond  # o[t]
         SIM_X[:,:,12] = house_gr  # h[t]
         SIM_X[:,:,13] = unemply # u[t]
-                       
+        SIM_X[:,:,14] = gold # g[t]
+
         self.SIM_X = SIM_X[:,1:,:]
         self.SIM_X_full = SIM_X[:,:,:]
         

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Simulation</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- 引入外部CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Economic Simulation</a>
+        <a href="/Portfolio">Portfolio</a>
+        <a href="/Inflation_Rate">Inflation Rate</a>
+        <a href="/Wage_Growth">Wage Growth</a>
+        <a href="/Long_term_Interest_Rate">Long-term Interest Rate</a>
+<!--        <a href="/Short_term_Interest_Rate">Short-term Interest Rate (s)</a>-->
+<!--        <a href="/Cash_Return">Cash Return (c)</a>-->
+<!--        <a href="/Dividend_Yield">Dividend Yield (y)</a>-->
+<!--        <a href="/Dividend_Growth">Dividend Growth (d)</a>-->
+<!--        <a href="/Stock_Price_Return">Stock Price Return (p)</a>-->
+<!--        <a href="/Stock_Total_Return">Stock Total Return (e)</a>-->
+<!--        <a href="/International_Stock_Total_Return">International Stock Total Return (n)</a>-->
+<!--        <a href="/Bond_Return">Bond Return (b)</a>-->
+<!--        <a href="/International_Bond_Return">International Bond Return (o)</a>-->
+<!--        <a href="/House_Price_Growth">House Price Growth (h)</a>-->
+<!--        <a href="/Unemployment_Rate">Unemployment Rate (u)</a>-->
+    </nav>
+
+    <div class="container mt-4">
+        <h1>Inflation Rate</h1>
+        <!-- 第一个图表 -->
+        <div id="plot1" class="mt-4">
+            {{ plot1_html|safe }}
+        </div>
+
+        <!-- 第二个图表 -->
+        <div id="plot2" class="mt-4">
+            {{ plot2_html|safe }}
+        </div>
+
+        <!-- 第三个图表 -->
+        <div id="plot3" class="mt-4">
+            {{ plot3_html|safe }}
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</body>
+</html>
